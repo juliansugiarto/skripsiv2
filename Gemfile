@@ -46,3 +46,20 @@ group :development do
   gem 'spring'
 end
 
+
+gem 'bootstrap-sass'
+gem 'devise'
+gem 'high_voltage'
+gem 'simple_form'
+gem 'slim-rails'
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller', :platforms=>[:mri_21]
+  gem 'haml2slim'
+  gem 'html2haml'
+  gem 'hub', :require=>nil
+  gem 'rails_apps_pages'
+  gem 'rails_layout'
+end
+
