@@ -9,7 +9,11 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
-
+gem "font-awesome-rails"
+gem 'elasticsearch-rails', '~> 0.1.8'
+gem 'elasticsearch-model', '~> 0.1.8'
+# Use ActiveModel has_secure_password
+gem 'bcrypt', '~> 3.1.7'
 # Uploader
 gem 'carrierwave', '0.10.0'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'

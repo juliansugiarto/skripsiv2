@@ -1,3 +1,47 @@
-h1 = "ASDASDASDAS"
+#wrapper.toggled
+  /! Sidebar
+  #sidebar-wrapper
+    ul.sidebar-nav
+      li.sidebar-brand
+        a href="#" 
+          | Start Bootstrap
+      li
+        = link_to  "Dashboard", dashboard_show_path
+      li
+        a href="#"  Shortcuts
+      li
+        a href="#"  Overview
+      li
+        a href="#"  Events
+      li
+        a href="#"  About
+      li
+        a href="#"  Services
+      li
+        a href="#"  Contact
+  #page-content-wrapper
+	  .container-fluid.no-padding-r
+	    .row
+	    	.col-lg-9
+		      .col-lg-1
+		        a#menu-toggle.btn.btn-default href="#menu-toggle"
+		        	= fa_icon "navicon"
 
-h1 = @designers_count
+		      .col-lg-3
+		      	.hl-box--ch
+		      		h4.hl__count = @ch_this_month.count
+		      		h6.hl__desc--ch = "This Month"
+
+		      .col-lg-4
+		      	.hl-box--designer
+		      		h4.hl__count = @designers_this_month.count
+		      		h6.hl__desc--designer = "This Month"
+
+		      .col-lg-4
+		      	.hl-box--contest
+		      		h4.hl__count = @contests_this_month.count
+		      		h6.hl__desc--contest = "This Month"
+
+		    .col-lg-3.no-padding-r.mtmin-19
+					.hl-rightbar
+						h1.hl__title = "Graph"

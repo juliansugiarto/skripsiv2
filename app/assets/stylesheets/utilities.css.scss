@@ -17,6 +17,7 @@ $color-sribu: #c73130;
   &-10 { margin-top: -10px; }
   &-12 { margin-top: -12px; }
   &-15 { margin-top: -15px; }
+  &-19 { margin-top: -19px; }
   &-20 { margin-top: -20px; }
   &-30 { margin-top: -30px; }
   &-35 { margin-top: -35px; }
@@ -139,6 +140,8 @@ div[class*="col-"].col-center {
   margin-right: auto;
 }
 .no-gutter [class*="col-"] { padding-left:0; padding-right:0; }
+.no-padding-lr {padding-left: 0; padding-right: 0;}
+.no-padding-r {padding-right: 0;}
 
 //font
 .superscript {

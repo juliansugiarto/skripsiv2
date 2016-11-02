@@ -7,6 +7,8 @@ class Member
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
   include ActiveModel::SecurePassword
+  include MemberSearchable
+  index_name "sribu_members"
 
   #                                                                       Constant
   # ==============================================================================

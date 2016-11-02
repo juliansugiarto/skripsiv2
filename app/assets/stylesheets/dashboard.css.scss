@@ -1,0 +1,249 @@
+/* color */
+
+$color-purple: #957bbe;
+$color-lightblue: #daeeff; 
+$color-cream: #fae3c4;
+$color-bootstrap: #563d7c;
+$color-alertgreen: #dff0d8;
+$color-bordergreen: #d0e9c6;
+$color-alertblue: #d9edf7;
+$color-borderblue: #bcdff1;
+$color-alertyellow: #fcf8e3;
+$color-borderyellow: #faf2cc;
+$color-alertred: #f2dede;
+$color-borderred: #ebcccc;
+$color-cardgreen: #5cb85c;
+$color-cardblue: #5bc0de;
+$color-cardyellow: #f0ad4e;
+$color-cardred: #d9534f;
+$color-sribu: #c73130;
+
+body {
+  overflow-x: hidden;
+}
+
+[class*="hl-box"] {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-top: 20px;
+  height: 120px;
+  width: 100%;
+  padding-top: 10px;
+  padding-left: 30px;
+
+}
+
+[class*="hl__desc"] {
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  padding: 10px;
+}
+
+#page-content-wrapper {
+
+}
+
+.hl-box {
+  &--ch {
+    border-color: $color-cardred;
+    position: relative;
+    &:before {
+      content: "CH";
+      position: absolute;
+      top: 40%;
+      left: 61.5%;
+      bottom: 0;
+      right: 0;
+      font-size: 30px;
+      font-weight: 800px;
+      color: #DDD;
+    }
+  }
+  &--designer {
+    border-color: $color-cardblue;
+    &:before {
+      content: "Designers";
+      position: absolute;
+      top: 50%;
+      left: 40%;
+      bottom: 0;
+      right: 0;
+      font-size: 30px;
+      font-weight: 800px;
+      color: #DDD;
+    }
+  }
+  &--contest {
+    border-color: $color-cardgreen;
+    &:before {
+      content: "Contests";
+      position: absolute;
+      top: 50%;
+      left: 40%;
+      bottom: 0;
+      right: 0;
+      font-size: 30px;
+      font-weight: 800px;
+      color: #DDD;
+    }
+  }
+}
+.hl {
+  &__count {
+    font-weight: 400;
+    font-size: 40px;
+    position: relative;
+  }
+  
+  &__title {
+    font-weight: 500;
+    font-size: 40px;
+    margin-top: 0;
+    padding-top: 20px;
+    padding-left: 20px;
+    opacity: 0.5;
+    color: $color-sribu;
+  }
+
+  &__desc {
+    &--ch {
+      color: $color-borderred;
+      
+    }
+    &--designer {
+      color: $color-borderblue;
+    }
+    &--contest {
+      color: $color-bordergreen;
+    }
+  }
+
+}
+
+.hl-rightbar {
+  height: 898px;
+  width: 100%;
+  border-left: 2px solid $color-bootstrap;
+}
+/* Toggle Styles */
+
+#wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+  padding-left: 250px;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 0;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  background: #000;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  text-indent: 20px;
+  line-height: 40px;
+}
+
+.sidebar-nav li a {
+  display: block;
+  text-decoration: none;
+  color: #999999;
+}
+
+.sidebar-nav li a:hover {
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+  height: 65px;
+  font-size: 18px;
+  line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  color: #fff;
+  background: none;
+}
+
+@media(min-width:768px) {
+  #wrapper {
+      padding-left: 250px;
+  }
+
+  #wrapper.toggled {
+      padding-left: 0;
+  }
+
+  #sidebar-wrapper {
+      width: 250px;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+      width: 0;
+  }
+
+  #page-content-wrapper {
+      padding: 20px;
+      position: relative;
+  }
+
+  #wrapper.toggled #page-content-wrapper {
+      position: relative;
+      margin-right: 0;
+  }
+}
