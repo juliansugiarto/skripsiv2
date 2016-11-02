@@ -1,0 +1,23 @@
+h1 Listing designers
+
+table
+  thead
+    tr
+      th Username
+      th Email
+      th
+      th
+      th
+
+  tbody
+    - @designers.each do |designer|
+      tr
+        td = designer.username
+        td = designer.email
+        td = link_to 'Show', designer
+        td = link_to 'Edit', edit_designer_path(designer)
+        td = link_to 'Destroy', designer, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Designer', new_designer_path

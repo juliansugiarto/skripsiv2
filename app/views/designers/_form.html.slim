@@ -1,0 +1,9 @@
+= simple_form_for(@designer) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :username
+    = f.input :email
+
+  .form-actions
+    = f.button :submit

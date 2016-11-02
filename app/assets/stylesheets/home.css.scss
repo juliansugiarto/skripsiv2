@@ -1,8 +1,36 @@
+$color-sribu: #c73130;
+// import the CSS framework
+@import "bootstrap-sprockets";
+@import "bootstrap";
 .home {
 
 	&__hero {
-		background-color: fade-out(red, 0.2);
 		height: 826px;
-		margin-top: -20px;
+		color: #fff;
+    text-align: center;
+    padding: 150px;
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: $color-sribu;
+      opacity: 0.9; 
+    }
+		[class*="alert"] {
+			@extend .alert;
+			padding: 23px;
+			position: relative;
+		}
+		h1 {
+			color: #fff;
+			position: relative;
+			margin-bottom: 150px;
+		}
 	}
 }
+

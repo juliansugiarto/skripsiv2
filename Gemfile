@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.2'
 gem 'rails', '4.2.5'
+gem 'mongoid', '5.1.3'
 gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -8,6 +9,14 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
+
+# Uploader
+gem 'carrierwave', '0.10.0'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
+gem "fog"
+gem 'rmagick'
+gem 'mini_magick'
 group :development, :test do
   gem 'byebug'
 end
@@ -20,6 +29,7 @@ gem 'devise'
 gem 'high_voltage'
 gem 'simple_form'
 gem 'slim-rails'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]

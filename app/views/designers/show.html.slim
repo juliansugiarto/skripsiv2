@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Username:
+  = @designer.username
+p
+  strong Email:
+  = @designer.email
+
+= link_to 'Edit', edit_designer_path(@designer)
+'|
+= link_to 'Back', designers_path

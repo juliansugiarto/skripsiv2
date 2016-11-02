@@ -23,4 +23,5 @@ cancel_user_registration GET    /users/cancel(.:format)        devise/registrati
                          PATCH  /users/:id(.:format)           users#update
                          PUT    /users/:id(.:format)           users#update
                          DELETE /users/:id(.:format)           users#destroy
+          dashboard_show GET    /dashboard(.:format)           dashboard#show
                     page GET    /pages/*id                     high_voltage/pages#show
