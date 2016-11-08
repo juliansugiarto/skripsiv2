@@ -12,6 +12,9 @@ gem 'jbuilder', '~> 2.0'
 gem "font-awesome-rails"
 gem 'elasticsearch-rails', '~> 0.1.8'
 gem 'elasticsearch-model', '~> 0.1.8'
+gem "bower-rails", "~> 0.11.0"
+#debugging
+gem 'pry-rails'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 # Uploader

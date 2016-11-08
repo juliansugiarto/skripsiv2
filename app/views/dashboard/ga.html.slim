@@ -1,0 +1,80 @@
+#wrapper.toggled
+	/! Sidebar
+	#sidebar-wrapper
+		ul.sidebar-nav
+			li.sidebar-brand
+				a href="#" 
+					| Start Bootstrap
+			li
+				= link_to "RT Dashboard", dashboard_show_path
+			li
+				= link_to "Overview", dashboard_ga_show_path
+			li
+				a href="#"  Overview
+			li
+				a href="#"  Events
+			li
+				a href="#"  About
+			li
+				a href="#"  Services
+			li
+				a href="#"  Contact
+			li
+				
+				
+	#page-content-wrapper
+		.container-fluid.no-padding-r
+			.row
+				.col-lg-1
+				  a#menu-toggle.btn.btn-default href="#menu-toggle"
+				  	= fa_icon "navicon"
+				.col-lg-3
+					#embed-api-auth-container
+	
+			.Dashboard.Dashboard--full
+			  header.Dashboard-header
+			    ul.FlexGrid
+			      li.FlexGrid-item
+			        .Titles
+			          h1#view-name.Titles-main Select a View
+			          .Titles-sub Various visualizations
+			      li.FlexGrid-item.FlexGrid-item--fixed
+			        #active-users-container
+			    #view-selector-container
+			  ul.FlexGrid.FlexGrid--halves
+			    li.FlexGrid-item
+			      .Chartjs
+			        header.Titles
+			          h1.Titles-main This Week vs Last Week
+			          .Titles-sub By sessions
+			        figure#chart-1-container.Chartjs-figure
+			        ol#legend-1-container.Chartjs-legend
+			    li.FlexGrid-item
+			      .Chartjs
+			        header.Titles
+			          h1.Titles-main This Year vs Last Year
+			          .Titles-sub By users
+			        figure#chart-2-container.Chartjs-figure
+			        ol#legend-2-container.Chartjs-legend
+			    li.FlexGrid-item
+			      .Chartjs
+			        header.Titles
+			          h1.Titles-main Top Browsers
+			          .Titles-sub By pageview
+			        figure#chart-3-container.Chartjs-figure
+			        ol#legend-3-container.Chartjs-legend
+			    li.FlexGrid-item
+			      .Chartjs
+			        header.Titles
+			          h1.Titles-main Top Countries
+			          .Titles-sub By sessions
+			        figure#chart-4-container.Chartjs-figure
+			        ol#legend-4-container.Chartjs-legend
+script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js" 
+script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js" 
+
+
+
+					
+
+

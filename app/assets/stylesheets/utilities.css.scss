@@ -12,6 +12,12 @@ $color-sribu: #c73130;
   right: 5%;
   z-index: 1000;
 }
+
+.width {
+  &-5 { width: 5%;  }
+  &-20 { width: 20%; }
+  &-23 { width: 23%; }
+}
 .mtmin {
   &-7 { margin-top: -7px; }
   &-10 { margin-top: -10px; }
@@ -153,7 +159,7 @@ div[class*="col-"].col-center {
   background-color: transparent;
   width: 60%;
   border: 2px solid #fff;
-  color: #fff;
+  color: #fff !important;
   margin-top: 30px;
   position: relative;
   margin-left: auto;
@@ -161,7 +167,7 @@ div[class*="col-"].col-center {
 
   &:hover {
     background-color: #fff;
-    color: $color-sribu;
+    color: $color-sribu !important;
     border-color: #fff;
     transition: all 0.5s ease-in-out 0s;
   }

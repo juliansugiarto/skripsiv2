@@ -25,7 +25,7 @@ body {
 [class*="hl-box"] {
   border: 1px solid #ddd;
   border-radius: 6px;
-  margin-top: 20px;
+  margin-bottom: 20px;
   height: 120px;
   width: 100%;
   padding-top: 10px;
@@ -65,11 +65,25 @@ body {
     &:before {
       content: "Designers";
       position: absolute;
-      top: 50%;
+      top: 40%;
       left: 40%;
       bottom: 0;
       right: 0;
       font-size: 30px;
+      font-weight: 800px;
+      color: #DDD;
+    }
+  }
+  &--designer-mini {
+    border-color: $color-cardblue;
+    &:before {
+      content: "Designers";
+      position: absolute;
+      top: 40%;
+      left: 40%;
+      bottom: 0;
+      right: 0;
+      font-size: 20px;
       font-weight: 800px;
       color: #DDD;
     }
@@ -79,7 +93,7 @@ body {
     &:before {
       content: "Contests";
       position: absolute;
-      top: 50%;
+      top: 40%;
       left: 40%;
       bottom: 0;
       right: 0;
@@ -125,6 +139,10 @@ body {
   height: 898px;
   width: 100%;
   border-left: 2px solid $color-bootstrap;
+}
+
+#view-selector-container {
+  margin-bottom: 30px;
 }
 /* Toggle Styles */
 
@@ -231,6 +249,7 @@ body {
 
   #sidebar-wrapper {
       width: 250px;
+      position: fixed;
   }
 
   #wrapper.toggled #sidebar-wrapper {

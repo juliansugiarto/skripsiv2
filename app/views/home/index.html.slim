@@ -9,12 +9,14 @@
 	      = content_tag :div, msg, :id => "flash_#{name}"
 
 	- if !user_signed_in?
-		.col-sm-6
-			= link_to "Sign Up",new_user_registration_path, class: 'btn btn-lg btn-block btn-default btn-white-outline'
-		.col-sm-6
-			= link_to "Login",new_user_session_path, class: 'btn btn-lg btn-block btn-default btn-white-outline'
+		.col-sm-12
+			= link_to "Sign Up",new_user_registration_path, class: 'btn btn-lg btn-default btn-white-outline'
+		.col-sm-12
+			= link_to "Login",new_user_session_path, class: 'btn btn-lg btn-default btn-white-outline'
 	- if user_signed_in?
 		.col-sm-12
-			= link_to "Sign out",destroy_user_session_path,:method => :delete, class: 'btn btn-lg btn-block btn-default btn-white-outline'
-	
+			= link_to "Sign out",destroy_user_session_path,:method => :delete, class: 'btn btn-lg btn-default btn-white-outline'
+		.col-sm-12
+			= link_to "Dashboard",dashboard_show_path, class: 'btn btn-lg btn-default btn-white-outline'
+		
 

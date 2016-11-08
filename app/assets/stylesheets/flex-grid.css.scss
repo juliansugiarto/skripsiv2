@@ -1,0 +1,50 @@
+:root {
+  --FlexGrid-gutter: var(--gap);
+  --FlexGrid-gutter-lg: var(--gap-lg);
+  --FlexGrid-itemMinWidth: 200px;
+}
+
+.FlexGrid {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0 0 -var(--FlexGrid-gutter) -var(--FlexGrid-gutter);
+  padding: 0;
+}
+
+.FlexGrid-item {
+  flex: 1;
+  
+}
+
+.FlexGrid-item--fixed {
+  /* An `auto` flex-basis will use the size of the contents. */
+  flex: 0 0 auto!important;
+}
+
+
+/**
+ * --halves modifier.
+ * Ensures that an item never takes up more than half of the width, i.e.
+ * no more that two items will ever be in a row.
+ */
+.FlexGrid--halves .FlexGrid-item {
+  flex-basis: 34%;
+  margin: 10px 0 var(--FlexGrid-gutter) var(--FlexGrid-gutter);
+}
+
+
+@media (--break-md) {
+  .FlexGrid-item {
+    flex-basis: var(--FlexGrid-itemMinWidth);
+  }
+}
+
+@media (--break-lg) {
+  .FlexGrid {
+    margin: 0 0 -var(--FlexGrid-gutter-lg) -var(--FlexGrid-gutter-lg);
+  }
+  .FlexGrid-item {
+    margin: 0 0 var(--FlexGrid-gutter-lg) var(--FlexGrid-gutter-lg);
+  }
+}

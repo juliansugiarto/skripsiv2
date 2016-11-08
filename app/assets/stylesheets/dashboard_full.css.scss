@@ -1,0 +1,49 @@
+@import 'site';
+
+:root {
+  --Dashboard-maxWidth: 52em;
+}
+
+.Dashboard {
+  background: #fff;
+  border-radius: 4px;
+  max-width: var(--Dashboard-maxWidth);
+  padding: var(--gap);
+}
+
+.Dashboard-header {
+  margin: -var(--gap) -var(--gap) var(--gap);
+  padding: var(--gap);
+}
+
+.Dashboard-footer {
+  border-top: 1px solid var(--border-color);
+  margin: -var(--gap) -var(--gap) var(--gap);
+  padding: var(--gap);
+}
+
+.Dashboard--full {
+  max-width: 100%;
+}
+
+.Dashboard--collapseBottom {
+  padding-bottom: 0;
+}
+
+@media (--break-lg) {
+  .Dashboard {
+    padding: var(--gap-lg);
+  }
+  .Dashboard-header {
+    margin: -var(--gap-lg) -var(--gap-lg) var(--gap-lg);
+    padding: var(--gap-lg);
+  }
+  .Dashboard-footer {
+    margin: -var(--gap-lg) -var(--gap-lg) var(--gap-lg);
+    padding: var(--gap);
+  }
+
+  .Dashboard--collapseBottom {
+    padding-bottom: calc(var(--gap-lg) - var(--gap));
+  }
+}
