@@ -21,29 +21,53 @@ $color-sribu: #c73130;
 body {
   overflow-x: hidden;
 }
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 [class*="hl-box"] {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  height: 120px;
+  border: 1px solid rgba(255,255,255,.1);
+  height: 200px;
   width: 100%;
   padding-top: 10px;
-  padding-left: 30px;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
 
 }
 
 [class*="hl__desc"] {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
   text-align: center;
-  padding: 10px;
-}
-
-#page-content-wrapper {
+  text-transform: uppercase;
 
 }
 
+[class*="hl__count"] {
+  text-align: center;
+}
+
+/*a:visited {
+  color: #fff;
+}*/
+.icon-white {
+  background-color: transparent !important;
+  border: 2px solid #fff;
+  color: #fff !important;
+  position: relative;
+  &:hover {
+    background-color: #fff;
+    color: $color-sribu !important;
+    border-color: #fff;
+    transition: all 0.5s ease-in-out 0s;
+  }
+}
+.even {
+  background-color: #0b1b28;
+}
+.hl-bottom-box {
+  margin-top: 30px;
+  height: 20%;
+  text-align: center;
+}
 .hl-box {
   &--ch {
     border-color: $color-cardred;
@@ -57,7 +81,7 @@ body {
       right: 0;
       font-size: 30px;
       font-weight: 800px;
-      color: #DDD;
+      color: #fff;
     }
   }
   &--designer {
@@ -71,7 +95,7 @@ body {
       right: 0;
       font-size: 30px;
       font-weight: 800px;
-      color: #DDD;
+      color: #fff;
     }
   }
   &--designer-mini {
@@ -85,7 +109,7 @@ body {
       right: 0;
       font-size: 20px;
       font-weight: 800px;
-      color: #DDD;
+      color: #fff;
     }
   }
   &--contest {
@@ -99,7 +123,7 @@ body {
       right: 0;
       font-size: 30px;
       font-weight: 800px;
-      color: #DDD;
+      color: #fff;
     }
   }
 }
@@ -122,7 +146,9 @@ body {
 
   &__desc {
     &--ch {
-      color: $color-borderred;
+      font-size: 20px;
+      margin-top: 30px;
+      color: $color-cardred;
       
     }
     &--designer {
@@ -181,6 +207,7 @@ body {
   width: 100%;
   position: absolute;
   padding: 15px;
+  background-color: #031421;
 }
 
 #wrapper.toggled #page-content-wrapper {

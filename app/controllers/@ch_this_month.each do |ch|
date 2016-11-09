@@ -1,0 +1,37 @@
+@ch_this_month.each do |ch|
+	@followup_this_month.each do |fu|
+        if fu.ticket.present?
+        	if ch.email == fu.ticket.created_for.email
+        		ch_fu_count+=1
+        	end
+        end
+    end
+end
+
+@ch_this_month_id = @ch.where(:created_at => date_from..date_to).map(&:id)
+
+ch_ids = []
+@ticket_register_this_month.each do |tr|
+	tr.events.each do |tre|
+		if tre._type == "TicketFollowUp"
+			ch_fu_count+=1
+			puts tr.id
+			ch_ids << tr.created_for.id
+			break
+		end
+	end
+end
+ch_ids.uniq.count
+
+lead_ids = []
+@ticket_lead_this_month.each do |tr|
+	tr.events.each do |tre|
+		if tre._type == "TicketFollowUp"
+			ch_fu_count+=1
+			lead_ids << tr.created_for.id
+			break
+		end
+	end
+end
+
+

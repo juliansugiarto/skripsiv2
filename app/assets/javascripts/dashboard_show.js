@@ -4,14 +4,14 @@ $(document).ready(function() {
       url: '/dashboard/ajax_data', 
       success: function(data) {
         $("h4.hl__count.ch-lead").html("");
-        $("h4.hl__count.designer").html("");
+        $("h4.hl__count.ch-lead-fu").html("");
         $("h4.hl__count.contest").html("");
         // Now that we've completed the request schedule the next one.
         var ch_lead = data.result[0].ch_lead;
-        var designer = data.result[0].designer;
+        var ch_lead_fu = data.result[0].ch_lead_fu;
         var contest = data.result[0].contest;
         $("h4.hl__count.ch-lead").append(ch_lead).hide().fadeIn("slow");;
-        $("h4.hl__count.designer").append(designer).hide().fadeIn("slow");;
+        $("h4.hl__count.ch-lead-fu").append(ch_lead_fu).hide().fadeIn("slow");;
         $("h4.hl__count.contest").append(contest).hide().fadeIn("slow");;
       },
       complete: function() {

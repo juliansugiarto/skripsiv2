@@ -23,42 +23,69 @@
 	#page-content-wrapper
 		.container-fluid.no-padding-r
 			.row
-				.col-lg-1.width-5
-				  a#menu-toggle.btn.btn-default href="#menu-toggle"
+				.col-lg-2
+				  a#menu-toggle.btn.btn-default.icon-white href="#menu-toggle"
 				  	= fa_icon "navicon"
-
-				.col-lg-2.width-20
-					.hl-box--ch
+				  = image_tag "sribu.svg", class: "img-responsive mt-50 ml-50", size: "100"
+				.col-lg-2.no-padding-lr.even
+					.hl-box
 						h4.hl__count.ch-lead
-						h6.hl__desc--ch = "This Month"
+						h6.hl__desc = "Lead + CH"
+						h6.hl__desc--ch = "Need Follow Up"
+						.hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_ch_lead}"
 
-				.col-lg-3
-					.hl-box--designer
-						h4.hl__count.designer 
-						h6.hl__desc--designer = "This Month"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.ch-lead-fu 
+						h6.hl__desc = "Lead + CH"
+						h6.hl__desc--contest = "Followed up"
+						.hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_ch_lead_followedup}"
 
-				.col-lg-3
-					.hl-box--contest
+				.col-lg-2.no-padding-lr.even
+					.hl-box
 						h4.hl__count.contest 
 						h6.hl__desc--contest = "This Month"
-				/ .col-lg-2.width-23
-				/ 	.hl-box--contest
-				/ 		h4.hl__count.contest
-				/ 		h6.hl__desc--contest = "This Month" 
+				.col-lg-2.no-padding-lr
+					.hl-box
+				.col-lg-2.no-padding-lr.even
+					.hl-box
+						h4.hl__count.contest
+						h6.hl__desc--contest = "This Month" 
             .row
-                .col-lg-2
-                    .hl-box--ch
+                .col-lg-2.no-padding-lr.even
+                    .hl-box
                         h4.hl__count.ch-contest
                         h6.hl__desc--ch = "Create Contest"
 
-                .col-lg-2
-                    .hl-box--designer-mini
+                .col-lg-2.no-padding-lr
+                    .hl-box
                         h4.hl__count.designer-pass
                         h6.hl__desc--designer = "Pass Exams"
-                .col-lg-3
-                    .hl-box--contest
+                .col-lg-2.no-padding-lr.even
+                    .hl-box
                         h4.hl__count.contest-active
-                        h6.hl__desc--contest = "Contest Active"
+                        h6.hl__desc--contest = "Contest Open"
+                .col-lg-2.no-padding-lr
+					.hl-box
+				.col-lg-2.no-padding-lr.even
+					.hl-box
+				.col-lg-2.no-padding-lr
+					.hl-box
+			.row
+				.col-lg-2.no-padding-lr
+					.hl-box
+				.col-lg-2.no-padding-lr.even
+					.hl-box
+				.col-lg-2.no-padding-lr
+					.hl-box
+				.col-lg-2.no-padding-lr.even
+					.hl-box
+				.col-lg-2.no-padding-lr
+					.hl-box
+				.col-lg-2.no-padding-lr.even
+					.hl-box
 
 
 
