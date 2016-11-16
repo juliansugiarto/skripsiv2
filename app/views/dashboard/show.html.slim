@@ -27,11 +27,11 @@
 				  a#menu-toggle.btn.btn-default.icon-white href="#menu-toggle"
 				  	= fa_icon "navicon"
 				  = image_tag "sribu.svg", class: "img-responsive mt-50 ml-50", size: "100"
-				.col-lg-2.no-padding-lr.even
+				.col-lg-2.no-padding-lr
 					.hl-box
 						h4.hl__count.ch-lead
 						h6.hl__desc = "Lead + CH"
-						h6.hl__desc--ch = "Need Follow Up"
+						h6.hl__desc--red = "Need Follow Up"
 						.hl-bottom-box
 							h6.hl__bottom-desc = "Yesterday: #{@yesterday_ch_lead}"
 
@@ -39,54 +39,129 @@
 					.hl-box
 						h4.hl__count.ch-lead-fu 
 						h6.hl__desc = "Lead + CH"
-						h6.hl__desc--contest = "Followed up"
+						h6.hl__desc--green = "Followed up"
 						.hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@yesterday_ch_lead_followedup}"
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_ch_lead_fu}"
 
-				.col-lg-2.no-padding-lr.even
-					.hl-box
-						h4.hl__count.contest 
-						h6.hl__desc--contest = "This Month"
 				.col-lg-2.no-padding-lr
 					.hl-box
-				.col-lg-2.no-padding-lr.even
+						h4.hl__count.contest-need-fu
+						h6.hl__desc = "Contest"
+						h6.hl__desc--red = "Need Follow Up"
+						.hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@contests_last_month_count}"
+				.col-lg-2.no-padding-lr
 					.hl-box
-						h4.hl__count.contest
-						h6.hl__desc--contest = "This Month" 
+						h4.hl__count.contest-paid
+						h6.hl__desc = "Contest"
+						h6.hl__desc--green = "PAID"
+						.hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@contest_paid_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.less-participate
+						h6.hl__desc = "Contest"
+						h6.hl__desc--red = "Less Participate"
+						.hl-bottom-box
+							/ h6.hl__bottom-desc = "Yesterday: #{@contest_less_last_month_count}"
             .row
-                .col-lg-2.no-padding-lr.even
+                .col-lg-2.no-padding-lr
                     .hl-box
-                        h4.hl__count.ch-contest
-                        h6.hl__desc--ch = "Create Contest"
+                        h4.hl__count.contest-open
+                        h6.hl__desc--green = "Open"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@contests_open_last_month_count}"
 
                 .col-lg-2.no-padding-lr
                     .hl-box
-                        h4.hl__count.designer-pass
-                        h6.hl__desc--designer = "Pass Exams"
-                .col-lg-2.no-padding-lr.even
+                        h4.hl__count.contest-wp
+                        h6.hl__desc--yellow = "Winner Pending"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@contests_wp_last_month_count}"
+                .col-lg-2.no-padding-lr
                     .hl-box
-                        h4.hl__count.contest-active
-                        h6.hl__desc--contest = "Contest Open"
+                        h4.hl__count.contest-ft
+                        h6.hl__desc--blue = "File Transfer"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@contests_ft_last_month_count}"
                 .col-lg-2.no-padding-lr
 					.hl-box
-				.col-lg-2.no-padding-lr.even
+						h4.hl__count.contest-closed
+                        h6.hl__desc--red = "Closed"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@contests_closed_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.new-ch-contest
+						h6.hl__percentage.new-ch-contest
+						h6.hl__desc--green = "New CH Contest"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@contests_new_ch_last_month_count}"
+
+				.col-lg-2.no-padding-lr
+					.hl-box
+			.row
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.saver
+                        h6.hl__desc--saver = "Saver"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@saver_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.bronze
+                        h6.hl__desc--bronze = "Bronze"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@bronze_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.silver
+                        h6.hl__desc--silver = "Silver"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@silver_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.gold
+                        h6.hl__desc--gold = "Gold"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@gold_last_month_count}"
+				.col-lg-2.no-padding-lr
 					.hl-box
 				.col-lg-2.no-padding-lr
 					.hl-box
 			.row
 				.col-lg-2.no-padding-lr
 					.hl-box
-				.col-lg-2.no-padding-lr.even
+						h6.hl__sales-currency = "IDR"
+						h4.hl__sales.saver-sales
+                        h6.hl__desc--saver = "Saver Sales"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@saver_sales_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h6.hl__sales-currency = "IDR"
+						h4.hl__sales.bronze-sales
+                        h6.hl__desc--bronze = "Bronze Sales"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@bronze_sales_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h6.hl__sales-currency = "IDR"
+						h4.hl__sales.silver-sales
+                        h6.hl__desc--silver = "Silver Sales"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@silver_sales_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h6.hl__sales-currency = "IDR"
+						h4.hl__sales.gold-sales
+                        h6.hl__desc--gold = "Gold Sales"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@gold_sales_last_month_count}"
+				.col-lg-2.no-padding-lr
 					.hl-box
 				.col-lg-2.no-padding-lr
 					.hl-box
-				.col-lg-2.no-padding-lr.even
-					.hl-box
-				.col-lg-2.no-padding-lr
-					.hl-box
-				.col-lg-2.no-padding-lr.even
-					.hl-box
-
 
 
           

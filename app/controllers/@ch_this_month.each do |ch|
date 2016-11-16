@@ -8,6 +8,28 @@
     end
 end
 
+#CONTEST NOT FU
+@contest_this_month = @contest.where(:created_at => date_from..date_to)
+contest_not_fu = @contest_this_month.count
+contest_no_ticket_ids = []
+@contest_this_month.each do |c|
+	ticket = ContestUnpaidTicket.find_by(contest: c)
+	if ticket.present?
+		ticket.events.each do |tre|
+			if tre._type == "TicketFollowUp"
+				contest_not_fu -= 1
+				break
+			end
+		end
+	else
+		contest_no_ticket_ids << c.id
+		contest_not_fu -= 1
+	end
+end
+@ticket_contest_this_month = Ticket.where(:)
+
+
+#CH +LEAD
 @ch_this_month_id = @ch.where(:created_at => date_from..date_to).map(&:id)
 
 ch_ids = []

@@ -99,7 +99,6 @@ development:
         # used to validate certs passed from the other end of the connection.
         # ssl_ca_cert: /path/to/ca.cert
 
-
   # Configure Mongoid specific options. (optional)
   options:
     # Includes the root model name in json serialization. (default: false)
@@ -114,7 +113,7 @@ development:
 
     # Raise an error when performing a #find and the document is not found.
     # (default: true)
-    # raise_not_found_error: true
+    raise_not_found_error: false
 
     # Raise an error when defining a scope with the same name as an
     # existing method. (default: false)

@@ -62,6 +62,10 @@ class Package
       where(active: true)
     end
 
+    def saver(category_id)
+      where(name: "Saver", category_id: category_id).first
+    end
+
     def bronze(category_id)
       where(name: "Bronze", category_id: category_id).first
     end

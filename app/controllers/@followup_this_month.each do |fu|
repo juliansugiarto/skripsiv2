@@ -1,5 +1,0 @@
-@followup_this_month.each do |fu|
-	if fu.ticket == nil
-		puts fu.id
-	end
-end

@@ -1,4 +1,6 @@
 /* color */
+/*rgb(0,170,231)
+rgb(33,218,176)*/
 
 $color-purple: #957bbe;
 $color-lightblue: #daeeff; 
@@ -18,6 +20,11 @@ $color-cardyellow: #f0ad4e;
 $color-cardred: #d9534f;
 $color-sribu: #c73130;
 
+// Packages color
+$color-saver: transparentize(#5bc0de, 0.1);
+$color-bronze: #E0B490;
+$color-silver: #b2b2b2;
+$color-gold: #e8b954;
 body {
   overflow-x: hidden;
 }
@@ -43,8 +50,26 @@ body {
 
 [class*="hl__count"] {
   text-align: center;
+  background: -webkit-linear-gradient(left,rgb(0,170,231), rgb(33,218,176));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
+[class*="hl__percentage"] {
+  text-align: center;
+  background: -webkit-linear-gradient(left,rgb(0,170,231), rgb(33,218,176));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 15px;
+}
+
+[class*="hl__sales"] {
+  text-align: center;
+  background: -webkit-linear-gradient(left,rgb(0,170,231), rgb(33,218,176));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 25px;
+}
 /*a:visited {
   color: #fff;
 }*/
@@ -145,17 +170,57 @@ body {
   }
 
   &__desc {
-    &--ch {
+    &--red {
       font-size: 20px;
       margin-top: 30px;
       color: $color-cardred;
       
     }
-    &--designer {
-      color: $color-borderblue;
+    &--blue {
+      font-size: 20px;
+      margin-top: 30px;
+      color: $color-cardblue;
+     
     }
-    &--contest {
-      color: $color-bordergreen;
+    &--green {
+      font-size: 20px;
+      margin-top: 30px;
+      color: $color-cardgreen;
+    }
+
+    &--yellow {
+      font-size: 20px;
+      margin-top: 30px;
+      color: $color-cardyellow;
+    }
+
+    &--saver {
+      font-size: 20px;
+      margin-top: 30px;
+      color: $color-saver;
+      
+    }
+    &--bronze {
+      font-size: 20px;
+      margin-top: 30px;
+      color: $color-bronze;
+     
+    }
+    &--silver {
+      font-size: 20px;
+      margin-top: 30px;
+      color: $color-silver;
+    }
+    &--gold {
+      font-size: 20px;
+      margin-top: 30px;
+      color: $color-gold;
+    }
+  }
+
+  &__sales {
+    &-currency {
+      font-size: 15px;
     }
   }
 

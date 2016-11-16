@@ -26,6 +26,11 @@ module Skripsiv2
     # config.autoload_paths += Dir[Rails.root.join('app', 'services', '{*/}')]
     # config.autoload_paths += Dir[Rails.root.join('app', 'filters')]
     # config.autoload_paths += Dir[Rails.root.join('app', 'filters', '{*/}')]
+    # load all models subfolder
+    
+    # config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
+    # config.autoload_paths += Dir[Rails.root.join('app', 'services', '{**}')]
+    # config.autoload_paths += Dir[Rails.root.join('app', 'uploaders', '{**}')]
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
