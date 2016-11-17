@@ -99,6 +99,12 @@ development:
         # used to validate certs passed from the other end of the connection.
         # ssl_ca_cert: /path/to/ca.cert
 
+    sribulancer_development:
+      database: sribulancer_development
+      hosts:
+        - 127.0.0.1:27017
+      options:
+
   # Configure Mongoid specific options. (optional)
   options:
     # Includes the root model name in json serialization. (default: false)
