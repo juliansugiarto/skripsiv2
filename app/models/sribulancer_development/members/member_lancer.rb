@@ -62,11 +62,6 @@ class MemberLancer
   field :register_from 
   field :register_server
 
-
-  BaseController::LIST_UTM.each do |u|
-    field u
-  end
-
   mount_uploader :photo, MemberPhotoUploader
 
   has_one :follow_up
@@ -107,9 +102,9 @@ class MemberLancer
   validates :password, :presence => true, :length => { :minimum => PASSWORD_MINIMUM_LENGTH, :maximum => PASSWORD_MAXIMUM_LENGTH }, :if => :password_required?
   validates :country, :presence => true, :unless => :new_and_short_form?
   validates :bio, :allow_blank => true, :length => { :minimum => BIO_MINIMUM_LENGTH, :maximum => BIO_MAXIMUM_LENGTH }, :if => :not_new_record?
-  validates :photo, :presence => true, :unless => Proc.new {|user| user.is_a? ServiceProviderMember }, :if => :not_new_record?, file_size: {
-      maximum: 1.megabytes.to_i
-    }
+  # validates :photo, :presence => true, :unless => Proc.new {|user| user.is_a? ServiceProviderMember }, :if => :not_new_record?, file_size: {
+  #     maximum: 1.megabytes.to_i
+  #   }
 
   validate :check_skills_count
 
@@ -336,7 +331,7 @@ class MemberLancer
   # count workspace message unread
   def workspace_unread_count
     unread = 0
-    workspaces = Workspace.or(
+    workspaces = WorkspaceLancer.or(
       { employer_username: self.username },
       { freelancer_username: self.username },
       { service_provider_username: self.username }

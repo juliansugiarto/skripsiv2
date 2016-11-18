@@ -19,12 +19,15 @@ module Skripsiv2
     # load all models, services, and filters subfolder
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{*/}')]
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{*/}', '{*/}')]
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', 'sribulancer_development','{*/}', '{*/}')]
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{*/}', '{*/}', '{*/}')]
     config.autoload_paths += Dir[Rails.root.join('app', 'services')]
     config.autoload_paths += Dir[Rails.root.join('app', 'services', '{*/}')]
     config.autoload_paths += Dir[Rails.root.join('app', 'filters')]
     config.autoload_paths += Dir[Rails.root.join('app', 'filters', '{*/}')]
     config.autoload_paths += Dir[Rails.root.join('app', 'uploaders')]
+
+    config.autoload_paths += %W(#{config.root}/lib/utilities/)
     # load all models subfolder
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.

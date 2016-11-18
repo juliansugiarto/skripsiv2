@@ -40,19 +40,19 @@ class Task
 
   default_scope ->{ where(:member_id.exists => true) }
 
-  scope :except_deleted, -> {where(:status.ne => Status::DELETED )}
+  scope :except_deleted, -> {where(:status.ne => StatusLancer::DELETED )}
   scope :created_at_desc, -> {desc(:created_at)}
   scope :updated_at_desc, -> {desc(:updated_ast)}
-  scope :opened_only, -> { where(status: Status::APPROVED) }
-  scope :closed_only, -> { where(:status.nin => [Status::REJECTED, Status::REQUESTED, Status::DRAFT]) }
-  scope :active_only, ->{ any_in(status: [Status::APPROVED, Status::CLOSED]) }
+  scope :opened_only, -> { where(status: StatusLancer::APPROVED) }
+  scope :closed_only, -> { where(:status.nin => [StatusLancer::REJECTED, StatusLancer::REQUESTED, StatusLancer::DRAFT]) }
+  scope :active_only, ->{ any_in(status: [StatusLancer::APPROVED, StatusLancer::CLOSED]) }
 
   before_save :set_title, :set_slug
   after_create :set_initial_state, :notify
   after_destroy :destroy_cb
 
   def draft?
-    self.status == Status::DRAFT
+    self.status == StatusLancer::DRAFT
   end
 
   def orphan?
@@ -69,12 +69,12 @@ class Task
 
   def set_initial_state
     if !self.member.blank? and self.member.for_testing?
-      General::ChangeStatusService.new(self, Status::APPROVED).change
-    # actually draft is already Status::DRAFT, but set it anyway to make sure and insert it to status histories
+      General::ChangeStatusService.new(self, StatusLancer::APPROVED).change
+    # actually draft is already StatusLancer::DRAFT, but set it anyway to make sure and insert it to status histories
     elsif self.draft?
-      General::ChangeStatusService.new(self, Status::DRAFT).change
+      General::ChangeStatusService.new(self, StatusLancer::DRAFT).change
     else
-      General::ChangeStatusService.new(self, Status::REQUESTED).change
+      General::ChangeStatusService.new(self, StatusLancer::REQUESTED).change
     end
     self.save(validate: false)
   end
@@ -106,7 +106,7 @@ class Task
   end
 
   def destroy_cb
-    General::ChangeStatusService.new(self, Status::DELETED).change
+    General::ChangeStatusService.new(self, StatusLancer::DELETED).change
 
     # TODO:
     # self.save will call another callback
@@ -116,7 +116,7 @@ class Task
   end
 
   def approve(current_member)
-    General::ChangeStatusService.new(self, Status::APPROVED, current_member).change
+    General::ChangeStatusService.new(self, StatusLancer::APPROVED, current_member).change
     if self.save
       MemberMailerWorker.perform_async(task_id: self.id.to_s, perform: :send_task_approval)
       ServiceProviderMailerWorker.perform_async(company_category: self.offline_category.offline_group_category_id.to_s, task_id: self.id.to_s, perform: :send_recap_email_new_task_to_service_provider)
@@ -128,7 +128,7 @@ class Task
 
   # reject this job and notify owner
   def reject(current_member, reason='', send_mail=true)
-    General::ChangeStatusService.new(self, Status::REJECTED, current_member, reason).change
+    General::ChangeStatusService.new(self, StatusLancer::REJECTED, current_member, reason).change
 
     if self.save
       # if send_mail == true
@@ -145,15 +145,15 @@ class Task
   end
   
   def rejected?
-    self.status == Status::REJECTED
+    self.status == StatusLancer::REJECTED
   end
 
   def requested?
-    self.status == Status::REQUESTED
+    self.status == StatusLancer::REQUESTED
   end
 
   def approved?
-    self.status == Status::APPROVED
+    self.status == StatusLancer::APPROVED
   end
 
 end

@@ -67,11 +67,11 @@ class Recruitment
   scope :created_at_desc, -> {desc(:created_at)}
   scope :due_date_desc, -> {desc(:due_date)}
   scope :due_date_asc, -> {asc(:due_date)}
-  scope :active_only, ->{ any_in(status: [Status::APPROVED, Status::CLOSED]) }
-  scope :opened_only, -> { where(:due_date.gt => DateTime.now, status: Status::APPROVED) }
-  # Change this scope to Status::DELETED if it's implemented.
-  scope :closed_only, -> { where(:due_date.lt => DateTime.now, :status.nin => [Status::REJECTED, Status::REQUESTED]) }
-  scope :not_deleted, -> {where(:status.ne => Status::DELETED)}
+  scope :active_only, ->{ any_in(status: [StatusLancer::APPROVED, StatusLancer::CLOSED]) }
+  scope :opened_only, -> { where(:due_date.gt => DateTime.now, status: StatusLancer::APPROVED) }
+  # Change this scope to StatusLancer::DELETED if it's implemented.
+  scope :closed_only, -> { where(:due_date.lt => DateTime.now, :status.nin => [StatusLancer::REJECTED, StatusLancer::REQUESTED]) }
+  scope :not_deleted, -> {where(:status.ne => StatusLancer::DELETED)}
   scope :closed, -> { where(:member_id.exists => true) }
   scope :closed_no_hired, -> { where(:member_id.exists => false) }
 
@@ -98,16 +98,16 @@ class Recruitment
   # when created, recruitment must be not be approved
   def set_initial_state
     if !self.member.blank? and self.member.for_testing?
-      General::ChangeStatusService.new(self, Status::APPROVED).change
+      General::ChangeStatusService.new(self, StatusLancer::APPROVED).change
     else
-      General::ChangeStatusService.new(self, Status::REQUESTED).change
+      General::ChangeStatusService.new(self, StatusLancer::REQUESTED).change
     end
     self.save
   end
 
   # approve this recruitment and notify owner
   def approve(current_member)
-    General::ChangeStatusService.new(self, Status::APPROVED).change
+    General::ChangeStatusService.new(self, StatusLancer::APPROVED).change
     if self.save
       MemberMailerWorker.perform_async(recruitment_id: self.id.to_s, perform: :send_recruitment_approval)
 
@@ -126,7 +126,7 @@ class Recruitment
 
   # reject this recruitment and notify owner
   def reject
-    General::ChangeStatusService.new(self, Status::REJECTED).change
+    General::ChangeStatusService.new(self, StatusLancer::REJECTED).change
     if self.save
       MemberMailerWorker.perform_async(recruitment_id: self.id.to_s, perform: :send_recruitment_rejection)
       return true
@@ -145,21 +145,21 @@ class Recruitment
   end
 
   def rejected?
-    self.status == Status::REJECTED
+    self.status == StatusLancer::REJECTED
   end
 
   def requested?
-    self.status == Status::REQUESTED
+    self.status == StatusLancer::REQUESTED
   end
 
   def approved?
-    self.status == Status::APPROVED
+    self.status == StatusLancer::APPROVED
   end
 
   def closed?
     # NOTE:
     # Don't use this line if we're still using Paranoia
-    # self.status == Status::CLOSED
+    # self.status == StatusLancer::CLOSED
 
     DateTime.now > self.due_date
   end
@@ -168,7 +168,7 @@ class Recruitment
   def deleted?
     # NOTE:
     # Don't use this line if we're still using Paranoia
-    # self.status == Status::DELETED
+    # self.status == StatusLancer::DELETED
 
     self.deleted_at.present?
   end  
@@ -275,7 +275,7 @@ class Recruitment
   end
 
   def destroy_cb
-    General::ChangeStatusService.new(self, Status::DELETED).change
+    General::ChangeStatusService.new(self, StatusLancer::DELETED).change
 
     # TODO:
     # self.save will call another callback

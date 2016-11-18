@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   get '/dashboard/contest_status' => 'dashboard#contest_status'
   get '/dashboard/contest_package' => 'dashboard#contest_package'
   get '/dashboard/contest_package_sales' => 'dashboard#contest_package_sales'
+  get '/dashboard/potential' => 'dashboard#potential'
 
 end

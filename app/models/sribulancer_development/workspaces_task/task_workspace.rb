@@ -1,4 +1,4 @@
-class TaskWorkspace < Workspace
+class TaskWorkspace < WorkspaceLancer
 
   belongs_to :task_order
 

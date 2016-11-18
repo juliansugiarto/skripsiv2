@@ -32,9 +32,9 @@ class TaskApplication
   before_create :set_currency
 
   scope :created_at_desc, -> {desc(:created_at)}
-  scope :favourite, -> { where(status_selection: Status::FAVOURITED) }
-  scope :eliminated, -> { where(status_selection: Status::ELIMINATED) }
-  scope :not_eliminated, -> { where(:status_selection.ne => Status::ELIMINATED) }
+  scope :favourite, -> { where(status_selection: StatusLancer::FAVOURITED) }
+  scope :eliminated, -> { where(status_selection: StatusLancer::ELIMINATED) }
+  scope :not_eliminated, -> { where(:status_selection.ne => StatusLancer::ELIMINATED) }
 
   unscope :task
 
@@ -60,11 +60,11 @@ class TaskApplication
   end
 
   def favourited?
-    self.status_selection == Status::FAVOURITED
+    self.status_selection == StatusLancer::FAVOURITED
   end
 
   def eliminated?
-    self.status_selection == Status::ELIMINATED
+    self.status_selection == StatusLancer::ELIMINATED
   end
 
   def reason

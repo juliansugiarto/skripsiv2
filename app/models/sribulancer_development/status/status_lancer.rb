@@ -1,4 +1,4 @@
-class Status
+class StatusLancer
 
   # Job / Service
   REJECTED = 'rejected'

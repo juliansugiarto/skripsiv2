@@ -1,4 +1,4 @@
-class ServiceWorkspace < Workspace
+class ServiceWorkspace < WorkspaceLancer
 
   belongs_to :service_order
 

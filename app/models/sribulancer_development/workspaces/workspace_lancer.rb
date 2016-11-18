@@ -1,5 +1,5 @@
 # represent a job posted by employer member
-class Workspace
+class WorkspaceLancer
 
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -89,7 +89,7 @@ class Workspace
     if self.freelancer_last_activity.present? and self.started?
       if ((Time.now - self.freelancer_last_activity) / 86400).to_i > 4
         if self.freelancer.present?
-          freelancer_fun = self.freelancer.follow_up.follow_up_notes.find_by(type: 'Workspace', workspace_id: self.id, :status.nin => [Status::FU_1, Status::FU_2, Status::FU_3]) if self.freelancer.follow_up.present?
+          freelancer_fun = self.freelancer.follow_up.follow_up_notes.find_by(type: 'Workspace', workspace_id: self.id, :status.nin => [StatusLancer::FU_1, StatusLancer::FU_2, StatusLancer::FU_3]) if self.freelancer.follow_up.present?
         end
         if freelancer_fun.present?
           if ((Time.now - freelancer_fun.created_at) / 86400).to_i > 4
@@ -112,7 +112,7 @@ class Workspace
     if self.employer_last_activity.present? and self.started?
       if ((Time.now - self.employer_last_activity) / 86400).to_i > 4
         if self.employer.present?
-          employer_fun = self.employer.follow_up.follow_up_notes.find_by(type: 'Workspace', workspace_id: self.id, :status.nin => [Status::FU_1, Status::FU_2, Status::FU_3]) if self.employer.follow_up.present?
+          employer_fun = self.employer.follow_up.follow_up_notes.find_by(type: 'Workspace', workspace_id: self.id, :status.nin => [StatusLancer::FU_1, StatusLancer::FU_2, StatusLancer::FU_3]) if self.employer.follow_up.present?
         end
         if employer_fun.present?
           if ((Time.now - employer_fun.created_at) / 86400).to_i > 4

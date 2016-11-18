@@ -17,8 +17,8 @@ class PayoutMethod
   
   embedded_in :member
 
-  scope :active_only, ->{ any_in(status: [Status::SUBMITTED, Status::VALIDATED]) }
-  scope :validated_only, ->{ any_in(status: [Status::VALIDATED]) }
+  scope :active_only, ->{ any_in(status: [StatusLancer::SUBMITTED, StatusLancer::VALIDATED]) }
+  scope :validated_only, ->{ any_in(status: [StatusLancer::VALIDATED]) }
 
   before_create :set_initial_state, :generate_validation_key
 
@@ -26,7 +26,7 @@ class PayoutMethod
 
   # when created, job must be not be approved
   def set_initial_state
-    General::ChangeStatusService.new(self, Status::SUBMITTED).change_status_only
+    General::ChangeStatusService.new(self, StatusLancer::SUBMITTED).change_status_only
   end
 
   # method to populate salt for new account
@@ -43,12 +43,12 @@ class PayoutMethod
   def validate
     # if this is the first one, set to default right away
     self.default = true if self.member.payout_methods.validated_only.count == 0
-    General::ChangeStatusService.new(self, Status::VALIDATED).change_status_only
+    General::ChangeStatusService.new(self, StatusLancer::VALIDATED).change_status_only
     self.save
   end
 
   def validated?
-    self.status == Status::VALIDATED
+    self.status == StatusLancer::VALIDATED
   end
 
   def paypal_payout?
@@ -69,7 +69,7 @@ class PayoutMethod
   end
 
   def delete
-    General::ChangeStatusService.new(self, Status::DELETED).change_status_only
+    General::ChangeStatusService.new(self, StatusLancer::DELETED).change_status_only
     self.save
   end
 

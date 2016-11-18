@@ -238,17 +238,17 @@ class MemberMailerWorker
 
   def send_job_approval(options)
     job = Job.unscoped.find options['job_id']
-    MemberMailer.send_job_approval(job).deliver if job.status == Status::APPROVED
+    MemberMailer.send_job_approval(job).deliver if job.status == StatusLancer::APPROVED
   end
 
   def send_task_approval(options)
     task = Task.unscoped.find options['task_id']
-    MemberMailer.send_task_approval(task).deliver if task.status == Status::APPROVED
+    MemberMailer.send_task_approval(task).deliver if task.status == StatusLancer::APPROVED
   end 
 
   def send_task_wait_for_approval(options)
     task = Task.unscoped.find options['task_id']
-    MemberMailer.send_task_wait_for_approval(task).deliver if task.status == Status::REQUESTED
+    MemberMailer.send_task_wait_for_approval(task).deliver if task.status == StatusLancer::REQUESTED
   end
 
   def send_private_job_approval(options)
@@ -279,7 +279,7 @@ class MemberMailerWorker
   def send_new_job_to_freelancer(options)
     member = Member.find options['member_id']
     job = Job.unscoped.find options['job_id']
-    MemberMailer.send_new_job_to_freelancer(member, job).deliver if job.status == Status::APPROVED
+    MemberMailer.send_new_job_to_freelancer(member, job).deliver if job.status == StatusLancer::APPROVED
   end
 
   def send_freelancer_hired_to_other_applicants(options)

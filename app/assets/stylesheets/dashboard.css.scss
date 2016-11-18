@@ -93,6 +93,9 @@ body {
   height: 20%;
   text-align: center;
 }
+.border-divider {
+  margin-bottom: 25px;
+}
 .hl-box {
   &--ch {
     border-color: $color-cardred;

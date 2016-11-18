@@ -1,4 +1,4 @@
-class JobWorkspace < Workspace
+class JobWorkspace < WorkspaceLancer
 
   belongs_to :job_order
 

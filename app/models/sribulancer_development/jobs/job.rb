@@ -79,22 +79,22 @@ class Job
   scope :due_date_asc, -> {asc(:due_date)}
   scope :budget_desc, -> {desc(:budget_in_idr)}
   scope :budget_asc, -> {asc(:budget_in_idr)}
-  scope :except_closed, ->{ any_in(status: [Status::REJECTED, Status::REQUESTED, Status::APPROVED], private: false).where(:due_date.gt => DateTime.now) }
-  scope :active_only, ->{ any_in(status: [Status::APPROVED, Status::CLOSED], private: false) }
+  scope :except_closed, ->{ any_in(status: [StatusLancer::REJECTED, StatusLancer::REQUESTED, StatusLancer::APPROVED], private: false).where(:due_date.gt => DateTime.now) }
+  scope :active_only, ->{ any_in(status: [StatusLancer::APPROVED, StatusLancer::CLOSED], private: false) }
 
-  scope :opened_only, -> { where(:due_date.gt => DateTime.now, status: Status::APPROVED, private: false) }
-  scope :except_deleted, -> {where(:status.ne => Status::DELETED )}
-  scope :draft_only, -> {where(:status => Status::DRAFT)}
+  scope :opened_only, -> { where(:due_date.gt => DateTime.now, status: StatusLancer::APPROVED, private: false) }
+  scope :except_deleted, -> {where(:status.ne => StatusLancer::DELETED )}
+  scope :draft_only, -> {where(:status => StatusLancer::DRAFT)}
 
-  # Change this scope to Status::DELETED if it's implemented.
-  scope :closed_only, -> { where(:due_date.lt => DateTime.now, :status.nin => [Status::REJECTED, Status::REQUESTED, Status::DRAFT]) }
+  # Change this scope to StatusLancer::DELETED if it's implemented.
+  scope :closed_only, -> { where(:due_date.lt => DateTime.now, :status.nin => [StatusLancer::REJECTED, StatusLancer::REQUESTED, StatusLancer::DRAFT]) }
   scope :private_only, -> {where(private: true)}
   scope :public_only, -> {where(private: false)}
-  scope :not_deleted, -> {where(:status.ne => Status::DELETED )}
-  scope :unapproved, -> {where(:member_id.exists => true, :deleted_at => nil, status: Status::REQUESTED, private: false)}
+  scope :not_deleted, -> {where(:status.ne => StatusLancer::DELETED )}
+  scope :unapproved, -> {where(:member_id.exists => true, :deleted_at => nil, status: StatusLancer::REQUESTED, private: false)}
 
   # Closed job that marked as no hired freelancer by admin, so they wouldn't follow up anymore
-  scope :marked_no_hired_only, -> { where(:due_date.lt => DateTime.now, status: Status::NO_HIRED ) }
+  scope :marked_no_hired_only, -> { where(:due_date.lt => DateTime.now, status: StatusLancer::NO_HIRED ) }
   scope :due_date_between, ->(start_period, end_period) { where(:due_date.gt => start_period, :due_date.lte => end_period) }
 
   order_paid_ids = Order.where(order_status_id: OrderStatus.get_paid).distinct(:job_id)
@@ -189,19 +189,19 @@ class Job
   # when created, job must be not be approved
   def set_initial_state
     if !self.member.blank? and self.member.for_testing?
-      General::ChangeStatusService.new(self, Status::APPROVED).change
-    # actually draft is already Status::DRAFT, but set it anyway to make sure and insert it to status histories
+      General::ChangeStatusService.new(self, StatusLancer::APPROVED).change
+    # actually draft is already StatusLancer::DRAFT, but set it anyway to make sure and insert it to status histories
     elsif self.draft?
-      General::ChangeStatusService.new(self, Status::DRAFT).change
+      General::ChangeStatusService.new(self, StatusLancer::DRAFT).change
     else
-      General::ChangeStatusService.new(self, Status::REQUESTED).change
+      General::ChangeStatusService.new(self, StatusLancer::REQUESTED).change
     end
     self.save(validate: false)
   end
 
   # approve this job and notify owner
   def approve(current_member)
-    General::ChangeStatusService.new(self, Status::APPROVED, current_member).change
+    General::ChangeStatusService.new(self, StatusLancer::APPROVED, current_member).change
     if self.save
       # if privete, broadcast to freelancers that had been offered this job
       if self.private?
@@ -240,7 +240,7 @@ class Job
 
   # reject this job and notify owner
   def reject(current_member, reason='', send_mail=true)
-    General::ChangeStatusService.new(self, Status::REJECTED, current_member, reason).change
+    General::ChangeStatusService.new(self, StatusLancer::REJECTED, current_member, reason).change
 
     if self.save
       if send_mail == true
@@ -277,15 +277,15 @@ class Job
   end
 
   def rejected?
-    self.status == Status::REJECTED
+    self.status == StatusLancer::REJECTED
   end
 
   def requested?
-    self.status == Status::REQUESTED
+    self.status == StatusLancer::REQUESTED
   end
 
   def approved?
-    self.status == Status::APPROVED
+    self.status == StatusLancer::APPROVED
   end
 
   def active?
@@ -293,13 +293,13 @@ class Job
   end
 
   def no_hired?
-    self.status == Status::NO_HIRED
+    self.status == StatusLancer::NO_HIRED
   end
 
   def closed?
     # NOTE:
     # Don't use this line if we're still using Paranoia
-    # self.status == Status::CLOSED
+    # self.status == StatusLancer::CLOSED
     return false if self.private?
     DateTime.now > self.due_date
   end
@@ -307,7 +307,7 @@ class Job
   def deleted?
     # NOTE:
     # Don't use this line if we're still using Paranoia
-    # self.status == Status::DELETED
+    # self.status == StatusLancer::DELETED
 
     self.deleted_at.present?
   end
@@ -486,12 +486,12 @@ class Job
 
   # check if job is on draft status
   def draft?
-    self.status == Status::DRAFT
+    self.status == StatusLancer::DRAFT
   end
 
   # set job status to be draft, you still need to save it outside
   def set_status_draft
-    General::ChangeStatusService.new(self, Status::DRAFT).change
+    General::ChangeStatusService.new(self, StatusLancer::DRAFT).change
   end
 
   def self.completed
@@ -547,7 +547,7 @@ class Job
   end
 
   def destroy_cb
-    General::ChangeStatusService.new(self, Status::DELETED).change
+    General::ChangeStatusService.new(self, StatusLancer::DELETED).change
 
     # TODO:
     # self.save will call another callback
@@ -571,7 +571,7 @@ class Job
 
     Job.due_date_between(start_period, end_period).each do |j|
       # Do not send email if job have orders or status is no_hired
-      next if !j.orders.paid.blank? or j.status == Status::NO_HIRED
+      next if !j.orders.paid.blank? or j.status == StatusLancer::NO_HIRED
       j.notify_no_hiring
     end
   end
@@ -581,7 +581,7 @@ class Job
     start_period = ((DateTime.now - 1.days).beginning_of_day - 1.second)
     end_period = DateTime.now.beginning_of_day
 
-    Job.due_date_between(start_period, end_period).where(:status => Status::APPROVED).each do |j|
+    Job.due_date_between(start_period, end_period).where(:status => StatusLancer::APPROVED).each do |j|
 
       # If employer already hire freelancer, skip send email
       next if j.orders.present?

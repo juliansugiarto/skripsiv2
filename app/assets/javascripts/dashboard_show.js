@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+  //SRIBU
   (function worker() {
     $.ajax({
       url: '/dashboard/ajax_data', 
@@ -120,10 +122,10 @@ $(document).ready(function() {
         $("h4.hl__sales.silver-sales").html("");
         $("h4.hl__sales.gold-sales").html("");
         // Now that we've completed the request schedule the next one.
-        var saver_sales = data.result[0].saver_sales.number_with_delimiter();;
-        var bronze_sales = data.result[0].bronze_sales.number_with_delimiter();;
-        var silver_sales = data.result[0].silver_sales.number_with_delimiter();;
-        var gold_sales = data.result[0].gold_sales.number_with_delimiter();;
+        var saver_sales = data.result[0].saver_sales.number_with_delimiter();
+        var bronze_sales = data.result[0].bronze_sales.number_with_delimiter();
+        var silver_sales = data.result[0].silver_sales.number_with_delimiter();
+        var gold_sales = data.result[0].gold_sales.number_with_delimiter();
 
         $("h4.hl__sales.saver-sales").append(saver_sales).hide().fadeIn("slow");
         $("h4.hl__sales.bronze-sales").append(bronze_sales).hide().fadeIn("slow");
@@ -136,5 +138,38 @@ $(document).ready(function() {
       }
     });
   })();
+
+
+
+  //SRIBULANCER
+  (function worker() {
+    $.ajax({
+      url: '/dashboard/potential', 
+      success: function(data) {
+        $("h4.hl__count.potential-leads").html("");
+        $("h4.hl__count.potential-employer").html("");
+        $("h4.hl__count.potential-jobs").html("");
+        $("h4.hl__count.potential-private").html("");
+        $("h4.hl__count.potential-jo").html("");
+        // Now that we've completed the request schedule the next one.
+        var leads = data.result[0].leads;
+        var employer = data.result[0].employer;
+        var jobs = data.result[0].jobs;
+        var private = data.result[0].private;
+        var job_order = data.result[0].job_order;
+
+        $("h4.hl__count.potential-leads").append(leads).hide().fadeIn("slow");
+        $("h4.hl__count.potential-employer").append(employer).hide().fadeIn("slow");
+        $("h4.hl__count.potential-jobs").append(jobs).hide().fadeIn("slow");
+        $("h4.hl__count.potential-private").append(private).hide().fadeIn("slow");
+        $("h4.hl__count.potential-jo").append(job_order).hide().fadeIn("slow");
+      },
+      complete: function() {
+        // Schedule the next request when the current one's complete
+        setTimeout(worker, 5000);
+      }
+    });
+  })();
+
 
 });

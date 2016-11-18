@@ -63,14 +63,14 @@ class Service
   scope :due_date_asc, -> {asc(:due_date)}
   scope :budget_desc, -> {desc(:budget_in_idr)}
   scope :budget_asc, -> {asc(:budget_in_idr)}
-  scope :active_only, ->{ any_in(status: [Status::APPROVED, Status::CLOSED]) }
-  scope :opened_only, -> { where(status: Status::APPROVED) }
-  scope :closed, ->{ any_in(status: Status::CLOSED) }
+  scope :active_only, ->{ any_in(status: [StatusLancer::APPROVED, StatusLancer::CLOSED]) }
+  scope :opened_only, -> { where(status: StatusLancer::APPROVED) }
+  scope :closed, ->{ any_in(status: StatusLancer::CLOSED) }
   scope :closed_no_hired, ->{ where(:member_id.exists => false) }
   scope :closed_only, ->{ }
-  scope :except_deleted, -> {where(:status.ne => Status::DELETED )}
-  scope :except_draft, -> {where(:status.ne => Status::DRAFT )}
-  scope :draft_only, -> {where(:status => Status::DRAFT )}
+  scope :except_deleted, -> {where(:status.ne => StatusLancer::DELETED )}
+  scope :except_draft, -> {where(:status.ne => StatusLancer::DRAFT )}
+  scope :draft_only, -> {where(:status => StatusLancer::DRAFT )}
   scope :updated_at_desc, -> { desc(:updated_at) }
   before_save :set_budget_in_idr, :set_slug
   after_create :notify, :set_initial_state
@@ -129,19 +129,19 @@ class Service
   def set_initial_state
     # auto approve service if it's testing member
     if !self.member.blank? and self.member.for_testing?
-      General::ChangeStatusService.new(self, Status::APPROVED).change
-    # actually draft is already Status::DRAFT, but set it anyway to make sure and insert it to status histories
+      General::ChangeStatusService.new(self, StatusLancer::APPROVED).change
+    # actually draft is already StatusLancer::DRAFT, but set it anyway to make sure and insert it to status histories
     elsif self.draft?
-      General::ChangeStatusService.new(self, Status::DRAFT).change
+      General::ChangeStatusService.new(self, StatusLancer::DRAFT).change
     else
-      General::ChangeStatusService.new(self, Status::REQUESTED).change
+      General::ChangeStatusService.new(self, StatusLancer::REQUESTED).change
     end
     self.save
   end
 
   # approve this service and notify owner
   def approve(current_member)
-    General::ChangeStatusService.new(self, Status::APPROVED, current_member).change
+    General::ChangeStatusService.new(self, StatusLancer::APPROVED, current_member).change
     if self.save
       MemberMailerWorker.perform_async(service_id: self.id.to_s, perform: :send_service_approval)
 
@@ -153,7 +153,7 @@ class Service
 
   # reject this service and notify owner
   def reject(current_member, reason='', send_mail=true)
-    General::ChangeStatusService.new(self, Status::REJECTED, current_member, reason).change
+    General::ChangeStatusService.new(self, StatusLancer::REJECTED, current_member, reason).change
     if self.save
       if send_mail
         MemberMailerWorker.perform_async(service_id: self.id.to_s, perform: :send_service_rejection)
@@ -189,21 +189,21 @@ class Service
   end
 
   def rejected?
-    self.status == Status::REJECTED
+    self.status == StatusLancer::REJECTED
   end
 
   def requested?
-    self.status == Status::REQUESTED
+    self.status == StatusLancer::REQUESTED
   end
 
   def approved?
-    self.status == Status::APPROVED
+    self.status == StatusLancer::APPROVED
   end
 
   def closed?
     # NOTE:
     # Don't use this line if we're still using Paranoia
-    # self.status == Status::CLOSED
+    # self.status == StatusLancer::CLOSED
 
     DateTime.now > self.due_date
   end
@@ -211,7 +211,7 @@ class Service
   def deleted?
     # NOTE:
     # Don't use this line if we're still using Paranoia
-    # self.status == Status::DELETED
+    # self.status == StatusLancer::DELETED
 
     self.deleted_at.present?
   end
@@ -234,12 +234,12 @@ class Service
 
   # check if job is on draft status
   def draft?
-    self.status == Status::DRAFT
+    self.status == StatusLancer::DRAFT
   end
 
   # set job status to be draft, you still need to save it outside
   def set_status_draft
-    General::ChangeStatusService.new(self, Status::DRAFT).change
+    General::ChangeStatusService.new(self, StatusLancer::DRAFT).change
   end
 
   # override getter for budget, if budget is blank then return 0
@@ -314,7 +314,7 @@ class Service
 
 
   def destroy_cb
-    General::ChangeStatusService.new(self, Status::DELETED).change
+    General::ChangeStatusService.new(self, StatusLancer::DELETED).change
 
     # TODO:
     # self.save will call another callback

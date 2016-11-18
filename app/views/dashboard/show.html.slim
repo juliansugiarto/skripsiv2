@@ -21,11 +21,12 @@
 				a href="#"  Contact
 				
 	#page-content-wrapper
+		/SRIBU
 		.container-fluid.no-padding-r
 			.row
 				.col-lg-2
-				  a#menu-toggle.btn.btn-default.icon-white href="#menu-toggle"
-				  	= fa_icon "navicon"
+				  / a#menu-toggle.btn.btn-default.icon-white href="#menu-toggle"
+				  	/ = fa_icon "navicon"
 				  = image_tag "sribu.svg", class: "img-responsive mt-50 ml-50", size: "100"
 				.col-lg-2.no-padding-lr
 					.hl-box
@@ -64,6 +65,149 @@
 						h6.hl__desc--red = "Less Participate"
 						.hl-bottom-box
 							/ h6.hl__bottom-desc = "Yesterday: #{@contest_less_last_month_count}"
+            .row
+                .col-lg-2.no-padding-lr
+                    .hl-box
+                        h4.hl__count.contest-open
+                        h6.hl__desc--green = "Open"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@contests_open_last_month_count}"
+
+                .col-lg-2.no-padding-lr
+                    .hl-box
+                        h4.hl__count.contest-wp
+                        h6.hl__desc--yellow = "Winner Pending"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@contests_wp_last_month_count}"
+                .col-lg-2.no-padding-lr
+                    .hl-box
+                        h4.hl__count.contest-ft
+                        h6.hl__desc--blue = "File Transfer"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@contests_ft_last_month_count}"
+                .col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.contest-closed
+                        h6.hl__desc--red = "Closed"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@contests_closed_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.new-ch-contest
+						h6.hl__percentage.new-ch-contest
+						h6.hl__desc--green = "New CH Contest"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@contests_new_ch_last_month_count}"
+
+				.col-lg-2.no-padding-lr
+					.hl-box
+			.row
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.saver
+                        h6.hl__desc--saver = "Saver"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@saver_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.bronze
+                        h6.hl__desc--bronze = "Bronze"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@bronze_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.silver
+                        h6.hl__desc--silver = "Silver"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@silver_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.gold
+                        h6.hl__desc--gold = "Gold"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@gold_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+				.col-lg-2.no-padding-lr
+					.hl-box
+			.row.border-divider
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h6.hl__sales-currency = "IDR"
+						h4.hl__sales.saver-sales
+                        h6.hl__desc--saver = "Saver Sales"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@saver_sales_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h6.hl__sales-currency = "IDR"
+						h4.hl__sales.bronze-sales
+                        h6.hl__desc--bronze = "Bronze Sales"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@bronze_sales_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h6.hl__sales-currency = "IDR"
+						h4.hl__sales.silver-sales
+                        h6.hl__desc--silver = "Silver Sales"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@silver_sales_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h6.hl__sales-currency = "IDR"
+						h4.hl__sales.gold-sales
+                        h6.hl__desc--gold = "Gold Sales"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@gold_sales_last_month_count}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+				.col-lg-2.no-padding-lr
+					.hl-box
+
+		/ SRIBULANCER
+		.container-fluid.no-padding-r
+			.row
+				.col-lg-2
+				  / a#menu-toggle.btn.btn-default.icon-white href="#menu-toggle"
+				  	/ = fa_icon "navicon"
+				  = image_tag "sribulancer-logo.svg", class: "img-responsive mt-50 ml-20"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.potential-leads
+						h6.hl__desc = "POTENTIAL"
+						h6.hl__desc--red = "LEADS"
+						.hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_potential_leads}"
+
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.potential-employer 
+						h6.hl__desc = "POTENTIAL"
+						h6.hl__desc--green = "EMPLOYER"
+						.hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday Follow Up: #{@yesterday_potential_employer}"
+
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.potential-jobs
+						h6.hl__desc = "POTENTIAL"
+						h6.hl__desc--red = "JOBS"
+						.hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday Follow Up: #{@yesterday_potential_jobs}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.potential-private
+						h6.hl__desc = "POTENTIAL"
+						h6.hl__desc--green = "PRIVATE JOB"
+						.hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday Follow Up: #{@yesterday_potential_private}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h4.hl__count.potential-jo
+						h6.hl__desc = "POTENTIAL"
+						h6.hl__desc--red = "JOB ORDER"
+						.hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday Follow Up: #{@yesterday_potential_job_order}"
             .row
                 .col-lg-2.no-padding-lr
                     .hl-box

@@ -1,4 +1,4 @@
-class PackageWorkspace < Workspace
+class PackageWorkspace < WorkspaceLancer
 
   belongs_to :package_order
 

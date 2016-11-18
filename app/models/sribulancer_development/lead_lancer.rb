@@ -12,11 +12,6 @@ class LeadLancer
   field :status
   field :budget
 
-  # Dinamic add utm field
-  BaseController::LIST_UTM.each do |utm|
-    field utm
-  end
-
   # FLAG
   field :fu, type: Boolean, default: true
 

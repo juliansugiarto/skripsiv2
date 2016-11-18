@@ -7,9 +7,9 @@ class FollowUpNote
   # To identify what kind of follow up this row belongs to.
 
   TYPE = ['Member', 'Job', 'JobOrder', 'Service', 'ServiceOrder', 'Task', 'TaskOrder', 'Lead', 'ServiceProviderLead', 'PackageOrder']
-  STATUS = [Status::FU_1, Status::FU_2, Status::FU_3, Status::FU_4, Status::FU_5]
-  STATUS_DIANA = [Status::FU_6, Status::FU_7]
-  STATUS_MEMBER = [Status::FU_MEMBER_1, Status::FU_MEMBER_2, Status::FU_MEMBER_3, Status::FU_MEMBER_4, Status::FU_MEMBER_5, Status::FU_MEMBER_6]
+  STATUS = [StatusLancer::FU_1, StatusLancer::FU_2, StatusLancer::FU_3, StatusLancer::FU_4, StatusLancer::FU_5]
+  STATUS_DIANA = [StatusLancer::FU_6, StatusLancer::FU_7]
+  STATUS_MEMBER = [StatusLancer::FU_MEMBER_1, StatusLancer::FU_MEMBER_2, StatusLancer::FU_MEMBER_3, StatusLancer::FU_MEMBER_4, StatusLancer::FU_MEMBER_5, StatusLancer::FU_MEMBER_6]
 
   field :type
   field :reminder_time, :type => DateTime

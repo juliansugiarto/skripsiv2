@@ -1,6 +1,7 @@
 class DashboardController < ApplicationController
 	before_action :authenticate_user!
 	def show
+    ############### SRIBU #####################################
 		@ch = Member.where(member_type_id: "4fac049959aa92040e000418")
 		@designer = Member.where(member_type_id: "4fac049959aa92040e000419")
 		@contest = Contest.all
@@ -9,7 +10,7 @@ class DashboardController < ApplicationController
     @lead = Lead.all
 		
 		date_from = "2016-09-01"
-    date_to = "2016-09-30"
+    date_to = "2016-10-01"
 
     #CH LAST MONTH
     @ch_last_month = @ch.where(:created_at => date_from..date_to)
@@ -107,7 +108,41 @@ class DashboardController < ApplicationController
     #CH+lead YESTERDAY
     @yesterday_ch_lead = @ch_last_month_count + @lead_last_month_count
     @yesterday_ch_lead_fu = total_yesterday_fu_count
+    ################################### END SRIBU ####################################
 
+    ######################## SRIBULANCER ##################################
+    #COMPONENTS
+    @leads = LeadLancer.all
+    @employer = EmployerMember.all
+    @jobs = Job.all
+    @job_order = JobOrder.all
+    @jobs_public = @jobs.public_only
+    @jobs_private = @jobs.private_only
+    #for lead
+    @fu = FollowUp.all
+
+    #VARIABLE
+    @jobs_public_last_month = @jobs_public.where(:created_at => date_from..date_to)
+    @jobs_private_last_month = @jobs_private.where(:created_at => date_from..date_to)
+    @employer_last_month = @employer.where(:created_at => date_from..date_to)
+    @job_order_last_month = @job_order.where(:created_at => date_from..date_to)
+    @leads_last_month = @leads.where(:created_at => date_from..date_to)
+
+    #FU
+    @employer_already_fu = @employer_last_month.where(:fu => true)
+    public_not_rejected = @jobs_public_last_month.where(:status.ne => StatusLancer::REJECTED ) #JOB PUBLIC YG NO REJECT
+    public_already_fu = public_not_rejected.where(:fu => true)
+    private_not_rejected = @jobs_private_last_month.where(:status.ne => StatusLancer::REJECTED ) #JOB PRIVATE YG NO REJECT
+    private_already_fu = private_not_rejected.where(:fu => true)
+    job_order_already_fu = @job_order_last_month.where(:fu => true)
+
+    #COUNTER
+    @yesterday_potential_leads = @leads_last_month.count
+    @yesterday_potential_employer = @employer_already_fu.count
+    @yesterday_potential_jobs = public_already_fu.count
+    @yesterday_potential_private = private_already_fu.count
+    @yesterday_potential_job_order = job_order_already_fu.count
+    ######################## END SRIBULANCER ##################################
 
 	end
 
@@ -121,9 +156,9 @@ class DashboardController < ApplicationController
     # @invoices = Invoice.all
     
     date_from = "2016-10-01"
-    date_to = "2016-10-31"
+    date_to = "2016-11-01"
     #VARIABLES
-    @contests_this_month = @contest.where(:created_at => date_from..date_to)
+    @contests_last_month = @contest.where(:created_at => date_from..date_to)
     @contests_open_this_month = @contests_this_month.where(:status => ContestStatus.open)
     @ticket_register_this_month = Ticket.where(:_type => "RegisterTicket", :created_at => date_from..date_to)
     @ticket_lead_this_month = Ticket.where(:_type => "LeadTicket", :created_at => date_from..date_to)
@@ -217,7 +252,7 @@ class DashboardController < ApplicationController
     @contest = Contest.all
 
     date_from = "2016-10-01"
-    date_to = "2016-10-31"
+    date_to = "2016-11-01"
 
     @contests_this_month = @contest.where(:created_at => date_from..date_to)
     #NEW CH CONTEST THIS MONTH
@@ -241,7 +276,7 @@ class DashboardController < ApplicationController
   def contest_status
     @contest = Contest.all
     date_from = "2016-10-01"
-    date_to = "2016-10-31"
+    date_to = "2016-11-01"
     #Declare contest
     @contests_this_month = @contest.where(:created_at => date_from..date_to)
     @contests_open_this_month = @contests_this_month.where(:status => ContestStatus.open)
@@ -272,7 +307,7 @@ class DashboardController < ApplicationController
     @contest = Contest.all
 
     date_from = "2016-10-01"
-    date_to = "2016-10-31"
+    date_to = "2016-11-01"
     #Declare contest
     @contests_this_month = @contest.where(:created_at => date_from..date_to)
     saver,bronze,silver,gold = 0,0,0,0
@@ -307,7 +342,7 @@ class DashboardController < ApplicationController
     @contest = Contest.all
 
     date_from = "2016-10-01"
-    date_to = "2016-10-31"
+    date_to = "2016-11-01"
     #Declare contest
     @contests_this_month = @contest.where(:created_at => date_from..date_to)
     saver_sales,bronze_sales,silver_sales,gold_sales = 0,0,0,0
@@ -339,6 +374,70 @@ class DashboardController < ApplicationController
 
   end
 
+  def potential
+    #COMPONENTS
+    @leads = LeadLancer.all
+    @employer = EmployerMember.all
+    @jobs = Job.all
+    @job_order = JobOrder.all
+    @jobs_public = @jobs.public_only
+    @jobs_private = @jobs.private_only
+    #for lead
+    @fu = FollowUp.all
+
+    #DATE
+    date_from = "2016-10-01"
+    date_to = "2016-11-01"
+
+    #VARIABLE
+    @jobs_public_this_month = @jobs_public.where(:created_at => date_from..date_to)
+    @jobs_private_this_month = @jobs_private.where(:created_at => date_from..date_to)
+    @employer_this_month = @employer.where(:created_at => date_from..date_to)
+    @job_order_this_month = @job_order.where(:created_at => date_from..date_to)
+    @leads_this_month = @leads.where(:created_at => date_from..date_to)
+
+    #FU
+    @employer_need_fu = @employer_this_month.where(:fu => false)
+    @fu_this_month = @fu.where(:created_at => date_from..date_to)
+    @fu_lead_this_month = @fu_this_month.select{|d| d.lead_id != nil}
+    #MENCOCOKAN LEADS FOLLOWEDUP DENGAN ALL LEADS THIS MONTH
+    # lead_followed_up = 0
+    # fu_lead_ids = @fu_lead_this_month.map(&:lead_id)
+    # @leads_this_month.each do |leads|
+    #   fu_lead_ids.each do |lead_fu|
+    #     if leads.id == lead_fu
+    #       lead_followed_up +=1
+    #     end
+    #   end
+    # end 
+
+    public_not_rejected = @jobs_public_this_month.where(:status.ne => StatusLancer::REJECTED ) #JOB PUBLIC YG NO REJECT
+    public_no_fu = public_not_rejected.where(:fu => false)
+    private_not_rejected = @jobs_private_this_month.where(:status.ne => StatusLancer::REJECTED ) #JOB PRIVATE YG NO REJECT
+    private_no_fu = private_not_rejected.where(:fu => false)
+    job_order_no_fu = @job_order_this_month.where(:paid_at => nil, :fu => false)
+
+    leads_need_fu = @leads_this_month.count - @fu_lead_this_month.count
+    employer_need_fu = @employer_need_fu.count
+    public_need_fu = public_no_fu.count
+    private_need_fu = private_no_fu.count
+    job_order_need_fu = job_order_no_fu.count
+
+
+    #AJAX
+    data_count, hash_counts = [], {}
+    hash_counts = {
+      leads: leads_need_fu,
+      employer: employer_need_fu,
+      jobs: public_need_fu,
+      private: private_need_fu,
+      job_order: job_order_need_fu
+    }
+
+    data_count << hash_counts
+
+    render status: :ok, json: {:result => data_count}
+  end 
 
 	def ga
 		
