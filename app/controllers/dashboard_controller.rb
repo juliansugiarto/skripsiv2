@@ -8,6 +8,8 @@ class DashboardController < ApplicationController
 		@agreement = Agreement.all
 		@invoices = Invoice.all
     @lead = Lead.all
+    @store_invoice = StoreInvoice.all
+    @store_purchase = StorePurchase.all
 		
 		date_from = "2016-09-01"
     date_to = "2016-10-01"
@@ -32,7 +34,8 @@ class DashboardController < ApplicationController
 
     #CONTEST PACKAGE
     @saver_last_month_count, @bronze_last_month_count, @silver_last_month_count, @gold_last_month_count = 0,0,0,0
-    @saver_sales_last_month, @bronze_sales_last_month, @silver_sales_last_month, @gold_sales_last_month = 0,0,0,0
+    @saver_sales_last_month, @bronze_sales_last_month, @silver_sales_last_month, @gold_sales_last_month, @yesterday_sales = 0,0,0,0,0
+
     @contests_last_month.each do |c|
       if c.package.cname == "saver"
         @saver_last_month_count+=1
@@ -44,6 +47,8 @@ class DashboardController < ApplicationController
         @gold_last_month_count+=1
       end
     end
+    store_sold = @store_invoice.where(:paid_at => date_from..date_to)
+    @store_sold_last_month_count = store_sold.count
     #PACKAGE SALES
     contest_sales = @contests_last_month.where(:status_id.ne => ContestStatus.not_active._id)
     contest_sales.each do |c|
@@ -57,11 +62,16 @@ class DashboardController < ApplicationController
         @gold_sales_last_month+=c.invoices.sum(&:calculate_total)
       end
     end
- 
+    store_sold_ids = @store_invoice.where(:paid_at => date_from..date_to).map(&:id)
+    store_sales = @store_purchase.where(:invoice_id.in => store_sold_ids).map(&:prize).reduce(:+)
+    @yesterday_sales = @saver_sales_last_month + @bronze_sales_last_month + @silver_sales_last_month + @gold_sales_last_month + store_sales
+
     @saver_sales_last_month_count = number_with_delimiter(@saver_sales_last_month, delimiter: ".")
     @bronze_sales_last_month_count = number_with_delimiter(@bronze_sales_last_month, delimiter: ".")
     @silver_sales_last_month_count = number_with_delimiter(@silver_sales_last_month, delimiter: ".")
     @gold_sales_last_month_count = number_with_delimiter(@gold_sales_last_month, delimiter: ".")
+    @store_sales_last_month_count = number_with_delimiter(store_sales,delimiter: ".")
+    @yesterday_sales = number_with_delimiter(@yesterday_sales,delimiter: ".")
 
     #COUNTER
     yesterday_ch_fu_count = 0
@@ -118,15 +128,40 @@ class DashboardController < ApplicationController
     @job_order = JobOrder.all
     @jobs_public = @jobs.public_only
     @jobs_private = @jobs.private_only
+    @workspace = WorkspaceLancer.all
+    @package_order = PackageOrder.all
+    @order = Order.all
     #for lead
     @fu = FollowUp.all
 
     #VARIABLE
+    @jobs_last_month = @jobs.where(:created_at => date_from..date_to)
     @jobs_public_last_month = @jobs_public.where(:created_at => date_from..date_to)
     @jobs_private_last_month = @jobs_private.where(:created_at => date_from..date_to)
     @employer_last_month = @employer.where(:created_at => date_from..date_to)
     @job_order_last_month = @job_order.where(:created_at => date_from..date_to)
     @leads_last_month = @leads.where(:created_at => date_from..date_to)
+    @po_last_month = @package_order.where(:created_at => date_from..date_to)
+
+    #JOBS POSTED
+    job_posted_yesterday = @jobs_public_last_month.count
+    #JOBS APPROVED
+    job_approved_yesterday = @jobs_last_month.where(:member_id.exists => true, :deleted_at => nil, status: StatusLancer::APPROVED, private: false).count
+    #PACKAGE ORDER
+    package_order_yesterday = @po_last_month.count
+
+    #PAID
+    po_paid_last_month = @package_order.where(:paid_at => date_from..date_to).count
+    public_paid_last_month = @jobs_public.paid_by_date(date_from,date_to).count
+    private_paid_last_month = @jobs_private.paid_by_date(date_from,date_to).count
+
+    #SALES
+    public_paid_ids = @jobs_public.paid_by_date(date_from,date_to).map(&:id)
+    private_paid_ids = @jobs_private.paid_by_date(date_from,date_to).map(&:id)
+
+    po_sales_last_month = @package_order.where(:paid_at => date_from..date_to).map(&:budget).reduce(:+)
+    public_sales_last_month = Order.where(:job_id.in => public_paid_ids).map(&:budget).reduce(:+)
+    private_sales_last_month = Order.where(:job_id.in => private_paid_ids).map(&:budget).reduce(:+)
 
     #FU
     @employer_already_fu = @employer_last_month.where(:fu => true)
@@ -137,11 +172,26 @@ class DashboardController < ApplicationController
     job_order_already_fu = @job_order_last_month.where(:fu => true)
 
     #COUNTER
+      #POTENTIAL
     @yesterday_potential_leads = @leads_last_month.count
     @yesterday_potential_employer = @employer_already_fu.count
     @yesterday_potential_jobs = public_already_fu.count
     @yesterday_potential_private = private_already_fu.count
     @yesterday_potential_job_order = job_order_already_fu.count
+      #LANCER_DATA
+    @yesterday_employer_register = @employer_last_month.count
+    @yesterday_jobs_posted = job_posted_yesterday
+    @yesterday_jobs_approved = job_approved_yesterday
+    @yesterday_package_order = package_order_yesterday
+      #LANCER_PAID
+    @yesterday_private_paid = private_paid_last_month
+    @yesterday_public_paid = public_paid_last_month
+    @yesterday_package_paid = po_paid_last_month
+      #LANCER_SALES
+    @yesterday_private_sales = number_with_delimiter(private_sales_last_month,delimiter: ".")
+    @yesterday_public_sales = number_with_delimiter(public_sales_last_month,delimiter: ".")
+    @yesterday_package_sales = number_with_delimiter(po_sales_last_month,delimiter: ".")
+    @yesterday_sales_lancer = number_with_delimiter((private_sales_last_month + public_sales_last_month + po_sales_last_month),delimiter: ".")
     ######################## END SRIBULANCER ##################################
 
 	end
@@ -158,7 +208,7 @@ class DashboardController < ApplicationController
     date_from = "2016-10-01"
     date_to = "2016-11-01"
     #VARIABLES
-    @contests_last_month = @contest.where(:created_at => date_from..date_to)
+    @contests_this_month = @contest.where(:created_at => date_from..date_to)
     @contests_open_this_month = @contests_this_month.where(:status => ContestStatus.open)
     @ticket_register_this_month = Ticket.where(:_type => "RegisterTicket", :created_at => date_from..date_to)
     @ticket_lead_this_month = Ticket.where(:_type => "LeadTicket", :created_at => date_from..date_to)
@@ -305,13 +355,14 @@ class DashboardController < ApplicationController
 
   def contest_package
     @contest = Contest.all
+    @store_invoice = StoreInvoice.all
 
     date_from = "2016-10-01"
     date_to = "2016-11-01"
     #Declare contest
     @contests_this_month = @contest.where(:created_at => date_from..date_to)
     saver,bronze,silver,gold = 0,0,0,0
-    #SAVER
+    #PACKAGE COUNT
     @contests_this_month.each do |c|
       if c.package.cname == "saver"
         saver+=1
@@ -324,12 +375,16 @@ class DashboardController < ApplicationController
       end
     end
 
+    store_sold = @store_invoice.where(:paid_at => date_from..date_to)
+    store_sold_count = store_sold.count
+
     data_count, hash_counts = [], {}
     hash_counts = {
       saver: saver,
       bronze: bronze,
       silver: silver,
-      gold: gold
+      gold: gold,
+      store_sold: store_sold_count
     }
 
     data_count << hash_counts
@@ -340,12 +395,14 @@ class DashboardController < ApplicationController
 
   def contest_package_sales
     @contest = Contest.all
+    @store_invoice = StoreInvoice.all
+    @store_purchase = StorePurchase.all
 
     date_from = "2016-10-01"
     date_to = "2016-11-01"
     #Declare contest
     @contests_this_month = @contest.where(:created_at => date_from..date_to)
-    saver_sales,bronze_sales,silver_sales,gold_sales = 0,0,0,0
+    saver_sales,bronze_sales,silver_sales,gold_sales,today_sales = 0,0,0,0,0
     contest_sales = @contests_this_month.where(:status_id.ne => ContestStatus.not_active._id)
     #SAVER
     contest_sales.each do |c|
@@ -360,12 +417,23 @@ class DashboardController < ApplicationController
       end
     end
 
+    store_sold_ids = @store_invoice.where(:paid_at => date_from..date_to).map(&:id)
+    store_sales = @store_purchase.where(:invoice_id.in => store_sold_ids).map(&:prize).reduce(:+)
+    if store_sales == nil
+      store_sales = 0
+    end
+    today_sales = saver_sales + bronze_sales + silver_sales + gold_sales + store_sales
+    month_sales = saver_sales + bronze_sales + silver_sales + gold_sales + store_sales
+    #AJAX
     data_count, hash_counts = [], {}
     hash_counts = {
       saver_sales: saver_sales,
       bronze_sales: bronze_sales,
       silver_sales: silver_sales,
-      gold_sales: gold_sales
+      gold_sales: gold_sales,
+      store_sales: store_sales,
+      today_sales: today_sales,
+      month_sales: month_sales
     }
 
     data_count << hash_counts
@@ -438,6 +506,120 @@ class DashboardController < ApplicationController
 
     render status: :ok, json: {:result => data_count}
   end 
+
+  def lancer_data
+    #COMPONENTS
+    @workspace = WorkspaceLancer.all
+    @package_order = PackageOrder.all
+    @employer = EmployerMember.all
+    @jobs = Job.all
+    #DATE
+    date_from = "2016-10-01"
+    date_to = "2016-11-01"
+
+    #VARIABLE
+    @workspace_this_month = @workspace.where(:created_at => date_from..date_to)
+    @employer_this_month = @workspace.where(:created_at => date_from..date_to)
+    @jobs_this_month = @jobs.where(:created_at => date_from..date_to)
+    @po_this_month = @package_order.where(:created_at => date_from..date_to)
+
+    #URGENT
+    urgent_workspace_count = 0
+    @workspace_this_month.each do |w|
+      if w.alert?
+        urgent_workspace_count +=1
+      end
+    end
+    #NEW REGIS
+    employer_regis = @employer_this_month.count
+    #JOBS POSTED
+    job_posted= @jobs_this_month.public_only.count
+    #JOBS APPROVED
+    job_approved = @jobs_this_month.where(:member_id.exists => true, :deleted_at => nil, status: StatusLancer::APPROVED, private: false).count
+    #PACKAGE ORDER
+    package_order = @po_this_month.count
+
+    #AJAX
+    data_count, hash_counts = [], {}
+    hash_counts = {
+      urgent: urgent_workspace_count,
+      employer_register: employer_regis,
+      jobs_posted: job_posted,
+      jobs_approved: job_approved,
+      package_order: package_order
+    }
+
+    data_count << hash_counts
+
+    render status: :ok, json: {:result => data_count}
+
+  end
+
+  def lancer_paid
+    #COMPONENTS
+    @package_order = PackageOrder.all
+    @jobs = Job.all
+    @jobs_public = @jobs.public_only
+    @jobs_private = @jobs.private_only
+    #DATE
+    date_from = "2016-10-01"
+    date_to = "2016-11-01"
+    #VARIABLES
+    po_paid_this_month = @package_order.where(:paid_at => date_from..date_to).count
+    public_paid_this_month = @jobs_public.paid_by_date(date_from,date_to).count
+    private_paid_this_month = @jobs_private.paid_by_date(date_from,date_to).count
+
+    #AJAX
+    data_count, hash_counts = [], {}
+    hash_counts = {
+      private_paid: private_paid_this_month,
+      public_paid: public_paid_this_month,
+      package_paid: po_paid_this_month
+    }
+
+    data_count << hash_counts
+
+    render status: :ok, json: {:result => data_count}
+
+
+  end
+
+  def lancer_sales
+    #COMPONENTS
+    @package_order = PackageOrder.all
+    @order = Order.all
+    @jobs = Job.all
+    @jobs_public = @jobs.public_only
+    @jobs_private = @jobs.private_only
+    #DATE
+    date_from = "2016-10-01"
+    date_to = "2016-11-01"
+    #VARIABLES
+    po_paid_this_month = @package_order.where(:paid_at => date_from..date_to)
+    public_paid_ids = @jobs_public.paid_by_date(date_from,date_to).map(&:id)
+    private_paid_ids = @jobs_private.paid_by_date(date_from,date_to).map(&:id)
+
+    po_sales_this_month = po_paid_this_month.map(&:budget).reduce(:+)
+    public_sales_this_month = Order.where(:job_id.in => public_paid_ids).map(&:budget).reduce(:+)
+    private_sales_this_month = Order.where(:job_id.in => private_paid_ids).map(&:budget).reduce(:+)
+
+    today_sales = private_sales_this_month + public_sales_this_month + po_sales_this_month
+    month_sales = private_sales_this_month + public_sales_this_month + po_sales_this_month
+    #AJAX
+    data_count, hash_counts = [], {}
+    hash_counts = {
+      private_sales: private_sales_this_month,
+      public_sales: public_sales_this_month,
+      package_sales: po_sales_this_month,
+      today_sales: today_sales,
+      month_sales: month_sales
+    }
+
+    data_count << hash_counts
+
+    render status: :ok, json: {:result => data_count}
+
+  end
 
 	def ga
 		

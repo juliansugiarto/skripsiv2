@@ -13,5 +13,8 @@ Rails.application.routes.draw do
   get '/dashboard/contest_package' => 'dashboard#contest_package'
   get '/dashboard/contest_package_sales' => 'dashboard#contest_package_sales'
   get '/dashboard/potential' => 'dashboard#potential'
+  get '/dashboard/lancer_data' => 'dashboard#lancer_data'
+  get '/dashboard/lancer_paid' => 'dashboard#lancer_paid'
+  get '/dashboard/lancer_sales' => 'dashboard#lancer_sales'
 
 end

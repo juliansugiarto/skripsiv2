@@ -128,8 +128,19 @@
 							h6.hl__bottom-desc = "Yesterday: #{@gold_last_month_count}"
 				.col-lg-2.no-padding-lr
 					.hl-box
+						h4.hl__count.store-sold
+                        h6.hl__desc--green = "Store Sold"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@store_sold_last_month_count}"
 				.col-lg-2.no-padding-lr
 					.hl-box
+						h6.hl__sales-currency = "IDR"
+						h4.hl__sales--recap.today-sales
+						h6.hl__percentage.today-sales
+						h6.hl__desc--yellow-recap = "Today Sales"
+                        .hl-bottom-box
+							h6.hl__bottom-desc--recap = "Yesterday: #{@yesterday_sales}"
+
 			.row.border-divider
 				.col-lg-2.no-padding-lr
 					.hl-box
@@ -161,8 +172,17 @@
 							h6.hl__bottom-desc = "Yesterday: #{@gold_sales_last_month_count}"
 				.col-lg-2.no-padding-lr
 					.hl-box
+						h6.hl__sales-currency = "IDR"
+						h4.hl__sales.store-sales
+                        h6.hl__desc--green = "Store Sales"
+                        .hl-bottom-box
+							h6.hl__bottom-desc = "Yesterday: #{@store_sales_last_month_count}"
 				.col-lg-2.no-padding-lr
 					.hl-box
+						h6.hl__sales-currency = "IDR"
+						h4.hl__sales--recap.month-sales
+						h6.hl__percentage.month-sales
+						h6.hl__desc--yellow = "Month Sales"
 
 		/ SRIBULANCER
 		.container-fluid.no-padding-r
@@ -208,104 +228,104 @@
 						h6.hl__desc--red = "JOB ORDER"
 						.hl-bottom-box
 							h6.hl__bottom-desc = "Yesterday Follow Up: #{@yesterday_potential_job_order}"
+			/ LANCER DATA
             .row
                 .col-lg-2.no-padding-lr
                     .hl-box
-                        h4.hl__count.contest-open
-                        h6.hl__desc--green = "Open"
-                        .hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@contests_open_last_month_count}"
-
+                        h4.hl__count.urgent-workspace
+                        h6.hl__desc--red = "URGENT"
+						h6.hl__desc--red = "WORKSPACES"
                 .col-lg-2.no-padding-lr
                     .hl-box
-                        h4.hl__count.contest-wp
-                        h6.hl__desc--yellow = "Winner Pending"
+                        h4.hl__count.employer-register
+                        h6.hl__desc--green = "New Employer"
                         .hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@contests_wp_last_month_count}"
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_employer_register}"
                 .col-lg-2.no-padding-lr
                     .hl-box
-                        h4.hl__count.contest-ft
-                        h6.hl__desc--blue = "File Transfer"
+                        h4.hl__count.job-posted
+                        h6.hl__desc--green = "JOB POSTED"
                         .hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@contests_ft_last_month_count}"
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_jobs_posted}"
                 .col-lg-2.no-padding-lr
 					.hl-box
-						h4.hl__count.contest-closed
-                        h6.hl__desc--red = "Closed"
+						h4.hl__count.job-approved
+                        h6.hl__desc--blue = "JOB APPROVED"
                         .hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@contests_closed_last_month_count}"
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_jobs_approved}"
 				.col-lg-2.no-padding-lr
 					.hl-box
-						h4.hl__count.new-ch-contest
-						h6.hl__percentage.new-ch-contest
-						h6.hl__desc--green = "New CH Contest"
+						h4.hl__count.package-order
+						h6.hl__desc--green = "PACKAGE ORDER"
                         .hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@contests_new_ch_last_month_count}"
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_package_order}"
 
 				.col-lg-2.no-padding-lr
 					.hl-box
+			/ LANCER PAID
 			.row
 				.col-lg-2.no-padding-lr
 					.hl-box
-						h4.hl__count.saver
-                        h6.hl__desc--saver = "Saver"
+						h4.hl__count.private-paid
+                        h6.hl__desc--green = "Private Job Paid"
                         .hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@saver_last_month_count}"
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_private_paid}"
 				.col-lg-2.no-padding-lr
 					.hl-box
-						h4.hl__count.bronze
-                        h6.hl__desc--bronze = "Bronze"
+						h4.hl__count.public-paid
+                        h6.hl__desc--green = "Posted Job Paid"
                         .hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@bronze_last_month_count}"
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_public_paid}"
 				.col-lg-2.no-padding-lr
 					.hl-box
-						h4.hl__count.silver
-                        h6.hl__desc--silver = "Silver"
+						h4.hl__count.package-paid
+                        h6.hl__desc--green = "Package Paid"
                         .hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@silver_last_month_count}"
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_package_paid}"
 				.col-lg-2.no-padding-lr
 					.hl-box
-						h4.hl__count.gold
-                        h6.hl__desc--gold = "Gold"
+				.col-lg-2.no-padding-lr
+					.hl-box
+				.col-lg-2.no-padding-lr
+					.hl-box
+						h6.hl__sales-currency = "IDR"
+						h4.hl__sales--recap.today-sales-lancer
+						h6.hl__percentage.today-sales-lancer
+						h6.hl__desc--yellow-recap = "Today Sales"
                         .hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@gold_last_month_count}"
-				.col-lg-2.no-padding-lr
-					.hl-box
-				.col-lg-2.no-padding-lr
-					.hl-box
+							h6.hl__bottom-desc--recap = "Yesterday: #{@yesterday_sales_lancer}"
 			.row
 				.col-lg-2.no-padding-lr
 					.hl-box
 						h6.hl__sales-currency = "IDR"
-						h4.hl__sales.saver-sales
-                        h6.hl__desc--saver = "Saver Sales"
+						h4.hl__sales.private-sales
+                        h6.hl__desc--gold = "Private Job Sales"
                         .hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@saver_sales_last_month_count}"
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_private_sales}"
 				.col-lg-2.no-padding-lr
 					.hl-box
 						h6.hl__sales-currency = "IDR"
-						h4.hl__sales.bronze-sales
-                        h6.hl__desc--bronze = "Bronze Sales"
+						h4.hl__sales.public-sales
+                        h6.hl__desc--bronze = "Posted Job Sales"
                         .hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@bronze_sales_last_month_count}"
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_public_sales}"
 				.col-lg-2.no-padding-lr
 					.hl-box
 						h6.hl__sales-currency = "IDR"
-						h4.hl__sales.silver-sales
-                        h6.hl__desc--silver = "Silver Sales"
+						h4.hl__sales.package-sales
+                        h6.hl__desc--silver = "Package Sales"
                         .hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@silver_sales_last_month_count}"
+							h6.hl__bottom-desc = "Yesterday: #{@yesterday_package_sales}"
+				.col-lg-2.no-padding-lr
+					.hl-box
+				.col-lg-2.no-padding-lr
+					.hl-box
 				.col-lg-2.no-padding-lr
 					.hl-box
 						h6.hl__sales-currency = "IDR"
-						h4.hl__sales.gold-sales
-                        h6.hl__desc--gold = "Gold Sales"
-                        .hl-bottom-box
-							h6.hl__bottom-desc = "Yesterday: #{@gold_sales_last_month_count}"
-				.col-lg-2.no-padding-lr
-					.hl-box
-				.col-lg-2.no-padding-lr
-					.hl-box
+						h4.hl__sales--recap.month-sales-lancer
+						h6.hl__percentage.month-sales-lancer
+						h6.hl__desc--yellow = "Month Sales"
 
 
           

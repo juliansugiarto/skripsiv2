@@ -183,7 +183,6 @@ body {
       font-size: 20px;
       margin-top: 30px;
       color: $color-cardblue;
-     
     }
     &--green {
       font-size: 20px;
@@ -195,6 +194,11 @@ body {
       font-size: 20px;
       margin-top: 30px;
       color: $color-cardyellow;
+      &-recap {
+        margin-top: 10px;
+        color: $color-cardyellow;
+        font-size: 20px;
+      }
     }
 
     &--saver {
@@ -221,9 +225,19 @@ body {
     }
   }
 
+  &__bottom-desc {
+
+    &--recap {
+      margin-top: -20px;
+    }
+  }
+
   &__sales {
     &-currency {
       font-size: 15px;
+    }
+    &--recap {
+
     }
   }
 
