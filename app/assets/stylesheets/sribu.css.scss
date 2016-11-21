@@ -18,51 +18,51 @@ $color-cardyellow: #f0ad4e;
 $color-cardred: #d9534f;
 $color-sribu: #c73130;
 
+.navigation {
+	height: 100vh;
+	background-color: #0b1b28;
+	left: 0;
+	min-height: 100%;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    transition: left .3s ease;
+    transform: translateZ(0);
+    border-right: 1px solid rgba(255,255,255,.08);
+   
+    text-align: center;
+
+    li {
+    	margin-left: -20px;
+    	margin-right: -20px;
+		&:hover {
+			background-color: #031421;
+		}
+    }
+
+    a {
+		&:hover {
+			text-decoration: none;
+		}
+	}
+	.active {
+		background-color: #031421;
+		font-weight: 700;
+	}
+}
+
+.icon-desc {
+	color: #fff;
+	font-size: 20px;
+	margin-top: 10px;
+	padding-left: 12px;
+	padding-right: 12px;
+}
 .s-less-participate {
 	background-color: #031421;
 	padding-top: 20px;
 	font-family: 'Roboto', sans-serif;
-	.navigation {
-		height: 100vh;
-		background-color: #0b1b28;
-		left: 0;
-		min-height: 100%;
-	    padding: 20px;
-	    position: fixed;
-	    top: 0;
-	    z-index: 10;
-	    transition: left .3s ease;
-	    transform: translateZ(0);
-	    border-right: 1px solid rgba(255,255,255,.08);
-	   
-	    text-align: center;
-
-	    li {
-	    	margin-left: -20px;
-	    	margin-right: -20px;
-			&:hover {
-				background-color: #031421;
-			}
-	    }
-
-	    a {
-			&:hover {
-				text-decoration: none;
-			}
-		}
-		.active {
-			background-color: #031421;
-			font-weight: 700;
-		}
-	}
-
-	.icon-desc {
-		color: #fff;
-		font-size: 20px;
-		margin-top: 10px;
-		padding-left: 12px;
-		padding-right: 12px;
-	}
 
 	&__title {
 		text-align: center;
@@ -169,4 +169,18 @@ $color-sribu: #c73130;
 	}
 
 	
+}
+
+.s-client {
+	background-color: #031421;
+	padding-top: 20px;
+	font-family: 'Roboto', sans-serif;
+
+	&__title {
+		text-align: center;
+		color: #fff;
+		text-transform: uppercase;
+	    font-weight: 900;
+    	letter-spacing: 4px;
+	}
 }

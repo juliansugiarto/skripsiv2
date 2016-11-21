@@ -8,14 +8,14 @@ class SribuController < ApplicationController
     date_from = "2016-10-01"
     date_to = "2016-11-01"
 
-    #VARIABLE
+    #VARIABLEs
     @contest_this_month = @contest.where(:created_at => date_from..date_to)
     @contest_less_participate_count = 0
     @contests_open_this_month = @contest_this_month.where(:status => ContestStatus.open)
     @contest_search = @contest_this_month.where(:end_date.nin => [nil])
-    
+
     #Contest LESS PARTICIPATE
-    @contest_search.each do |c|
+    @contest_search.each do |c| #GANTI JADI @CONTEST OPEN YG DI SEARCH 
       #duration left
       duration_left = (DateTime.now - c.end_date).to_i
       entries_limit = 20
@@ -29,4 +29,14 @@ class SribuController < ApplicationController
 
   end
 
+  def client
+    #COMPONENTS
+    @ch = Member.where(member_type_id: "4fac049959aa92040e000418")
+    @contest = Contest.all
+    #DATE
+    date_from = "2016-10-01"
+    date_to = "2016-11-01"
+
+    #VARIABLEs
+  end
 end

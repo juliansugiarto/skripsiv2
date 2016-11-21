@@ -1,0 +1,26 @@
+/ LESS PARTICIPATE
+.s-client
+	.container-fluid.no-padding-r
+		.col-sm-1
+			.navigation
+				ul.list-unstyled
+					li
+						= image_tag "sribu.svg", class: "img-responsive mt-30", size: "100"
+					li
+						= link_to sribu_overview_path do
+							= image_tag "icon-overview.png", class: "img-responsive mt-30", size: "100"
+							span.icon-desc = "Overview"
+					li.active
+						= link_to sribu_client_path do
+							= image_tag "icon-client.png", class: "img-responsive mt-30", size: "100"
+							span.icon-desc = "List Client"
+					li
+							= link_to sribu_less_participate_path do
+							= image_tag "icon-warning.png", class: "img-responsive mt-30 mb-10", size: "100"
+							span.icon-desc = "Less"
+							br
+							span.icon-desc = "Participate"
+		.col-sm-11
+			h3.s-client__title = "List Client"
+ 
+		
