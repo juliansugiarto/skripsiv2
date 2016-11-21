@@ -4,4 +4,6 @@ $(document).ready(function() {
     $("#wrapper").toggleClass("toggled");
   });
 
+  $('.dropdown-toggle').dropdown()
+
 });

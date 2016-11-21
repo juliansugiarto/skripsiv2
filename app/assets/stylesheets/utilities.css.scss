@@ -12,6 +12,12 @@ $color-sribu: #c73130;
   right: 5%;
   z-index: 1000;
 }
+.inline {
+  display: inline;
+}
+.inline-block {
+  display: inline-block;
+}
 
 .width {
   &-5 { width: 5%;  }
@@ -90,6 +96,7 @@ $color-sribu: #c73130;
   &-50 { margin-top: 50px; }
   &-60 { margin-top: 60px; }
   &-70 { margin-top: 70px; }
+  &-90 { margin-top: 90px; }
   &-100 { margin-top: 100px;}
   &-120 { margin-top: 120px;}
   &-150 { margin-top: 150px;}

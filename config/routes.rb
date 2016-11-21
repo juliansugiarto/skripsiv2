@@ -17,4 +17,9 @@ Rails.application.routes.draw do
   get '/dashboard/lancer_paid' => 'dashboard#lancer_paid'
   get '/dashboard/lancer_sales' => 'dashboard#lancer_sales'
 
+  # SRIBU
+  get '/sribu/overview' => 'sribu#overview'
+  get '/sribu/client' => 'sribu#client'
+  get '/sribu/less-participate' => 'sribu#less_participate'
+
 end

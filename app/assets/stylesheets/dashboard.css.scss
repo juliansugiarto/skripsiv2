@@ -42,7 +42,7 @@ body {
 
 [class*="hl__desc"] {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 400;
   text-align: center;
   text-transform: uppercase;
 
@@ -83,6 +83,14 @@ body {
     color: $color-sribu !important;
     border-color: #fff;
     transition: all 0.5s ease-in-out 0s;
+  }
+}
+button#sribu-menu {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  &:focus {
+    outline: none;
   }
 }
 .even {
@@ -157,7 +165,7 @@ body {
 }
 .hl {
   &__count {
-    font-weight: 400;
+    font-weight: 900;
     font-size: 40px;
     position: relative;
   }
@@ -233,6 +241,7 @@ body {
   }
 
   &__sales {
+    font-weight: 900;
     &-currency {
       font-size: 15px;
     }

@@ -1,0 +1,50 @@
+/ LESS PARTICIPATE
+.s-less-participate
+	.container-fluid.no-padding-r
+		.col-sm-1
+			.navigation
+				ul.list-unstyled
+					li
+						= image_tag "sribu.svg", class: "img-responsive mt-30", size: "100"
+					li
+						= link_to sribu_overview_path do
+							= image_tag "icon-overview.png", class: "img-responsive mt-30", size: "100"
+							span.icon-desc = "Overview"
+					li
+						= link_to sribu_client_path do
+							= image_tag "icon-client.png", class: "img-responsive mt-30", size: "100"
+							span.icon-desc = "List Client"
+					li.active
+							= link_to sribu_less_participate_path do
+							= image_tag "icon-warning.png", class: "img-responsive mt-30 mb-10", size: "100"
+							span.icon-desc = "Less"
+							br
+							span.icon-desc = "Participate"
+		.col-sm-11
+			h3.s-less-participate__title = "Contest Less Participant"
+            span.s-less-participate__count = "Total Count: #{@contest_search.count}"
+			.s-less-participate__content.mt-10
+				table.container
+					thead
+						tr
+							th
+								h1 Title
+							th
+								h1 Category
+							th
+								h1 Package
+							th
+								h1 Submission
+							th
+								h1 Duration Left
+
+				    tbody
+                        - @contest_search.each do |c|
+						  tr
+							td = c.title
+							td = c.category.name
+							td = c.package.name
+							td = c.entries.count
+							td = sribu_date(c.end_date)
+
+		

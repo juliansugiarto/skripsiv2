@@ -26,8 +26,19 @@
 			.row
 				.col-lg-2
 				  / a#menu-toggle.btn.btn-default.icon-white href="#menu-toggle"
-				  	/ = fa_icon "navicon"
-				  = image_tag "sribu.svg", class: "img-responsive mt-50 ml-50", size: "100"
+				  / 	= fa_icon "navicon"
+				  .dropdown
+					button#sribu-menu aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button" 
+					  = image_tag "sribu.svg", class: "img-responsive mtmin-10 ml-50 inline", size: "100"
+					  = fa_icon "lg caret-down", class: "ml-10 mt-100 inline-block", style: "color: #fff;"
+					ul.dropdown-menu aria-labelledby="sribu-menu" 
+					  li
+						= link_to "Overview", sribu_overview_path
+					  li
+						= link_to "List Client", sribu_client_path
+					  li
+					    = link_to "Less Participate", sribu_less_participate_path
+
 				.col-lg-2.no-padding-lr
 					.hl-box
 						h4.hl__count.ch-lead
@@ -233,8 +244,8 @@
                 .col-lg-2.no-padding-lr
                     .hl-box
                         h4.hl__count.urgent-workspace
-                        h6.hl__desc--red = "URGENT"
-						h6.hl__desc--red = "WORKSPACES"
+                        h6.hl__desc--red = "URGENT WORKSPACES"
+						h6.hl__desc--red = ""
                 .col-lg-2.no-padding-lr
                     .hl-box
                         h4.hl__count.employer-register
