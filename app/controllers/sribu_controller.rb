@@ -39,4 +39,9 @@ class SribuController < ApplicationController
 
     #VARIABLEs
   end
+
+  def overview
+
+  end
+  
 end

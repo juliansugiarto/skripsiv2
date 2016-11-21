@@ -184,3 +184,17 @@ $color-sribu: #c73130;
     	letter-spacing: 4px;
 	}
 }
+
+.s-overview {
+	background-color: #031421;
+	padding-top: 20px;
+	font-family: 'Roboto', sans-serif;
+
+	&__title {
+		text-align: center;
+		color: #fff;
+		text-transform: uppercase;
+	    font-weight: 900;
+    	letter-spacing: 4px;
+	}
+}
